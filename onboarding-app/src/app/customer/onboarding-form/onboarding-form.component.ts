@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-onboarding-form',
@@ -24,7 +25,7 @@ export class OnboardingFormComponent {
   countries: string[] = [ "Investment porfolio", "Account to operatelocally", 
   "Account to operate overseas", "Energy & commodiƟes financing"];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.onboardingFirstForm = this.formBuilder.group({
       purpose: ['', Validators.required],
       company: ['', Validators.required],
@@ -52,5 +53,6 @@ export class OnboardingFormComponent {
 
   validation() {
     console.log(this.document);
+    this.router.navigate(['/submitted']);
   }
 }

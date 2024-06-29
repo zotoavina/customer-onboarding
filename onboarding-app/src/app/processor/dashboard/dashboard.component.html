@@ -1,20 +1,67 @@
 <div class="main">
-    <div class="catalogue-detail table-responsive py-3">
-        <table class="table table-sm table-hover table-bordered table-striped">
+    <div class="py-5 text-center">
+        <h2>CUSTOMER ONBOARDING APPLICATIONS</h2>
+    </div>
+    <div class="row dashboard-info">
+        <div class="col-1"></div>
+        <button type="button" class="btn btn-primary btn-lg border-primary col-3"><i class="bi bi-folder"></i> 452 Applications</button>
+        <button type="button" class="btn btn-success btn-lg border-success col-3"><i class="bi bi-folder-check"></i> 321 Proceeded</button>
+        <button type="button" class="btn btn-danger btn-lg border-danger col-3"><i class="bi bi-folder-x"></i> 112 Rejected</button>    
+    </div>
+    <div class="table-responsive py-3">
+        <table class="table table-md table-hover table-bordered table-striped">
             <thead class="table-primary">
                 <tr class="text-center align-middle">
                     <th *ngFor="let tabhead of processorTableHeader" scope="col">{{tabhead}}</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor=" let subApp of submittedApplication">
-                    <td class="text-center align-middle table-success">{{subApp.company}}</td>
+                <tr *ngFor=" let subApp of submittedApplication" class="text-center align-middle">
+                    <td class="table-success">{{subApp.company}}</td>
                     <td>{{subApp.entity}}</td>
-                    <td>{{subApp.activity}}</td>
+                    <td>{{subApp.activity}}</td> 
                     <td>{{subApp.country}}</td>
                     <td>{{subApp.registrationNumber}}</td>
+                    <td class="action-col">
+                        <button type="button" class="btn btn-outline-warning" title="Edit" (click)="edit(subApp.id)">
+                            <i class="bi bi-pencil"></i> Edit
+                        </button>
+                        <button type="button" class="btn btn-outline-primary" title="View documents" (click)="viewDocuments(subApp.id)">
+                            <i class="bi bi-eye"></i> View Documents
+                        </button>
+                    </td>
+                    <td class="action-col">
+                        <button type="button" class="btn btn-outline-success" title="Proceed" (click)="proceed(subApp.id)">
+                            <i class="bi bi-check"></i> Proceed
+                        </button>
+                        <button type="button" class="btn btn-outline-danger" title="Reject" (click)="reject(subApp.id)">
+                            <i class="bi bi-x"></i> Reject
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </div>

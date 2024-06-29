@@ -1,4 +1,5 @@
 export interface Customer {
+    id:number;
     purpose:string;
     company:string;
     entity:string;

@@ -12,13 +12,17 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
 import { FooterComponent } from './shared/component/footer/footer.component';
+import { AppIdGenerationComponent } from './customer/app-id-generation/app-id-generation.component';
+import { ApproverPageComponent } from './approver-page/approver-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OnboardingFormComponent,
     DashboardComponent,
-    FooterComponent
+    FooterComponent,
+    AppIdGenerationComponent,
+    ApproverPageComponent
   ],
   imports: [
     BrowserModule,

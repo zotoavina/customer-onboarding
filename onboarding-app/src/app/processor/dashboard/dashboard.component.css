@@ -1,0 +1,18 @@
+td{
+    width: 11%;
+}
+td.action-col{
+    width: 22% !important;
+}
+button{
+    margin: 0% 2% 0% 2%;
+}
+.pagination{
+    justify-content: center;
+}
+
+.dashboard-info button{
+    opacity: 55%;
+    font-size: xx-large;
+}
+    
