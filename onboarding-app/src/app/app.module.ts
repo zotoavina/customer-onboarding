@@ -11,12 +11,14 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
+import { FooterComponent } from './shared/component/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OnboardingFormComponent,
-    DashboardComponent
+    DashboardComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
