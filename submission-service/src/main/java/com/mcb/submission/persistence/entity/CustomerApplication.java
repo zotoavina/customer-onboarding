@@ -64,5 +64,5 @@ public class CustomerApplication {
     @Email
     @Column(nullable = false)
     private String emailForCom;
-    
+
 }
