@@ -1,10 +1,10 @@
-package com.mcb.customer;
+package com.mcb.submission;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CustomerServiceApplicationTests {
+class SubmissionServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

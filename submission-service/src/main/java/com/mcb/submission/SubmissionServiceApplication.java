@@ -1,13 +1,13 @@
-package com.mcb.customer;
+package com.mcb.submission;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CustomerServiceApplication {
+public class SubmissionServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CustomerServiceApplication.class, args);
+		SpringApplication.run(SubmissionServiceApplication.class, args);
 	}
 
 }
