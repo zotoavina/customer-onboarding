@@ -1,1 +1,20 @@
-<p>dashboard works!</p>
+<div class="main">
+    <div class="catalogue-detail table-responsive py-3">
+        <table class="table table-sm table-hover table-bordered table-striped">
+            <thead class="table-primary">
+                <tr class="text-center align-middle">
+                    <th *ngFor="let tabhead of processorTableHeader" scope="col">{{tabhead}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor=" let subApp of submittedApplication">
+                    <td class="text-center align-middle table-success">{{subApp.company}}</td>
+                    <td>{{subApp.entity}}</td>
+                    <td>{{subApp.activity}}</td>
+                    <td>{{subApp.country}}</td>
+                    <td>{{subApp.registrationNumber}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
