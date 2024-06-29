@@ -5,24 +5,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { OnboardingFormComponent } from './customer/onboarding-form/onboarding-form.component';
-import { DashboardComponent } from './processor/dashboard/dashboard.component';
+import { OnboardingFormComponent } from './pages/customer/onboarding-form/onboarding-form.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
+import { PagesComponent } from './pages/pages.component';
 import { FooterComponent } from './shared/component/footer/footer.component';
-import { AppIdGenerationComponent } from './customer/app-id-generation/app-id-generation.component';
-import { ApproverPageComponent } from './approver-page/approver-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OnboardingFormComponent,
-    DashboardComponent,
-    FooterComponent,
-    AppIdGenerationComponent,
-    ApproverPageComponent
+    PagesComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

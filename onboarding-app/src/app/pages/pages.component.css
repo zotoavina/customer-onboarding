@@ -1,0 +1,5 @@
+.container{
+    min-height: 93vh;
+    height: -webkit-fill-available;
+    overflow-y: hidden;
+}

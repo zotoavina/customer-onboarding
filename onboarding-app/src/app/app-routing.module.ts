@@ -1,26 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { OnboardingFormComponent } from './customer/onboarding-form/onboarding-form.component';
-import { DashboardComponent } from './processor/dashboard/dashboard.component';
-import { AppIdGenerationComponent } from './customer/app-id-generation/app-id-generation.component';
-import { ApproverPageComponent } from './approver-page/approver-page.component';
+import { OnboardingFormComponent } from './pages/customer/onboarding-form/onboarding-form.component';
 
 const routes: Routes = [
   {
-    path:'',
+    path:'onboarding',
     component: OnboardingFormComponent
   },
   {
-    path:'dashboard',
-    component: DashboardComponent
-  },
-  {
-    path:'submitted',
-    component: AppIdGenerationComponent
-  },
-  {
-    path:'approver',
-    component: ApproverPageComponent
+    path: '',
+    loadChildren: () =>
+      import('./pages/pages.module').then(
+        (m) => m.PagesModule
+      ),
   }
 ];
 

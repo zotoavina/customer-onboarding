@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Customer } from '../shared/model/customer';
+import { Customer } from '../../../shared/model/customer';
 
 @Component({
   selector: 'app-approver-page',
