@@ -3,196 +3,176 @@
     <h2>MBC ONBOADING FORM</h2>
   </div>
   <div class="row">
-    <div class="col-md-2 col-lg-2"></div>
-    <div class="col-md-8 col-lg-8">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
       <mat-stepper [linear]="isLinear" #stepper>
         <mat-step [stepControl]="onboardingFirstForm" label="About the company">
-          <h4 class="mb-5 my-5">About the company</h4>
           <div class="row">
-            <form class="needs-validation" [formGroup]="onboardingFirstForm" novalidate>
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label for="purpose" class="form-label">Purpose</label>
-                  <select class="form-select" formControlName="purpose" id="purpose" required>
-                    <option *ngFor="let purpose of purposes" [value]="purpose">{{purpose}}</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    Please provide a valid state.
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+              <h4 class="mb-5 my-5 text-center">About the company</h4>
+              <form class="needs-validation" [formGroup]="onboardingFirstForm" novalidate>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="purpose" class="form-label">Purpose</label>
+                    <select class="form-select" formControlName="purpose" id="purpose" required>
+                      <option *ngFor="let purpose of purposes" [value]="purpose">{{purpose}}</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please provide a valid state.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="company" class="form-label">Company name</label>
+                    <input type="text" class="form-control" formControlName="company" id="company" placeholder=""
+                      value="" required>
+                    <div class="invalid-feedback">
+                      Valid first name is required.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="entity" class="form-label">Entity type</label>
+                    <select class="form-select" formControlName="entity" id="entity" required>
+                      <option *ngFor="let entity of entities" [value]="entity">{{entity}}</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please provide a valid state.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="activity" class="form-label">Business activity</label>
+                    <select class="form-select" formControlName="activity" id="activity" required>
+                      <option *ngFor="let activity of activities" [value]="activity">{{activity}}</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please provide a valid state.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="licence" class="form-label">Licence</label>
+                    <input type="text" class="form-control" formControlName="licence" id="licence" placeholder=""
+                      value="" required>
+                    <div class="invalid-feedback">
+                      Valid last name is required.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="country" class="form-label">Country</label>
+                    <select class="form-select" formControlName="country" id="country" required>
+                      <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please provide a valid state.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="registration-number" class="form-label">Registration number</label>
+                    <input type="text" class="form-control" formControlName="registrationNumber"
+                      id="registration-number" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                      Valid last name is required.
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <label for="address" class="form-label">Date of incorporation</label>
+                    <input type="date" class="form-control" formControlName="dateOfIncorporation" id="address"
+                      placeholder="1234 Main St" required>
+                    <div class="invalid-feedback">
+                      Please enter your shipping address.
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <label for="company" class="form-label">Company name</label>
-                  <input type="text" class="form-control" formControlName="company" id="company" placeholder="" value=""
-                    required>
-                  <div class="invalid-feedback">
-                    Valid first name is required.
-                  </div>
+                <div class="row g-3">
+                  <div class="col-md-4"></div>
+                  <button matStepperNext class="btn btn-primary btn-md my-5 col-md-4">Next</button>
                 </div>
-                <div class="col-md-6">
-                  <label for="entity" class="form-label">Entity type</label>
-                  <select class="form-select" formControlName="entity" id="entity" required>
-                    <option *ngFor="let entity of entities" [value]="entity">{{entity}}</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    Please provide a valid state.
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="activity" class="form-label">Business activity</label>
-                  <select class="form-select" formControlName="activity" id="activity" required>
-                    <option *ngFor="let activity of activities" [value]="activity">{{activity}}</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    Please provide a valid state.
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="licence" class="form-label">Licence</label>
-                  <input type="text" class="form-control" formControlName="licence" id="licence" placeholder="" value=""
-                    required>
-                  <div class="invalid-feedback">
-                    Valid last name is required.
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="country" class="form-label">Country</label>
-                  <select class="form-select" formControlName="country" id="country" required>
-                    <option *ngFor="let country of countries" [value]="country">{{country}}</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    Please provide a valid state.
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="registration-number" class="form-label">Registration number</label>
-                  <input type="text" class="form-control" formControlName="registrationNumber" id="registration-number"
-                    placeholder="" value="" required>
-                  <div class="invalid-feedback">
-                    Valid last name is required.
-                  </div>
-                </div>
-      
-                <div class="col-6">
-                  <label for="address" class="form-label">Date of incorporation</label>
-                  <input type="date" class="form-control" formControlName="dateOfIncorporation" id="address"
-                    placeholder="1234 Main St" required>
-                  <div class="invalid-feedback">
-                    Please enter your shipping address.
-                  </div>
-                </div>
-              </div>
-              <button matStepperNext class="w-100 btn btn-info btn-lg my-3" type="submit">Next</button>
-            </form>
+              </form>
+            </div>
+
           </div>
-          
         </mat-step>
         <mat-step [stepControl]="onboardingSecondForm" label="About the Director and Applicant">
-          <h4 class="mb-5 my-5">About the Director and Applicant</h4>
-          <form class="needs-validation" [formGroup]="onboardingThirdForm" novalidate>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label for="director" class="form-label">Name of Director/Shareholders</label>
-                <input type="text" class="form-control" formControlName="director" id="director" placeholder="" value=""
-                  required>
-                <div class="invalid-feedback">
-                  Valid last name is required.
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+              <h4 class="mb-5 my-5 text-center">About the Director and Applicant</h4>
+              <form class="needs-validation" [formGroup]="onboardingSecondForm" novalidate>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="director" class="form-label">Name of Director/Shareholders</label>
+                    <input type="text" class="form-control" formControlName="director" id="director" placeholder=""
+                      value="" required>
+                    <div class="invalid-feedback">
+                      Valid last name is required.
+                    </div>
+                  </div>
+  
+                  <div class="col-md-6">
+                    <label for="director" class="form-label">Passeport number of Director/Shareholders</label>
+                    <input type="text" class="form-control" formControlName="director" id="director" placeholder=""
+                      value="" required>
+                    <div class="invalid-feedback">
+                      Valid last name is required.
+                    </div>
+                  </div>
+  
+                  <div class="col-md-6">
+                    <label for="director" class="form-label">Applicant</label>
+                    <input type="text" class="form-control" formControlName="director" id="director" placeholder=""
+                      value="" required>
+                    <div class="invalid-feedback">
+                      Valid last name is required.
+                    </div>
+                  </div>
+  
+  
+                  <div class="col-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" formControlName="email" id="email"
+                      placeholder="you@example.com">
+                    <div class="invalid-feedback">
+                      Please enter a valid email address for shipping updates.
+                    </div>
+                  </div>
                 </div>
-              </div>
-    
-              <div class="col-md-6">
-                <label for="director" class="form-label">Passeport number of Director/Shareholders</label>
-                <input type="text" class="form-control" formControlName="director" id="director" placeholder="" value=""
-                  required>
-                <div class="invalid-feedback">
-                  Valid last name is required.
+                <div class="row g-3">
+                  <div class="col-md-3"></div>
+                  <button matStepperPrevious class="btn btn-primary btn-md my-5 col-md-2">Prev</button>
+                  <div class="col-md-2"></div>
+                  <button matStepperNext class="btn btn-primary btn-md my-5 col-md-2">Next</button>
                 </div>
-              </div>
-    
-              <div class="col-md-6">
-                <label for="director" class="form-label">Applicant</label>
-                <input type="text" class="form-control" formControlName="director" id="director" placeholder="" value=""
-                  required>
-                <div class="invalid-feedback">
-                  Valid last name is required.
-                </div>
-              </div>
-    
-    
-              <div class="col-6">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                <div class="invalid-feedback">
-                  Please enter a valid email address for shipping updates.
-                </div>
-              </div>
+              </form>
             </div>
-            <button matStepperPrevious class="w-50 btn btn-info btn-lg my-3">Prev</button>
-            <button matStepperNext class="w-50 btn btn-success btn-lg my-3">Next</button>
-          </form>
+          </div>
+         
         </mat-step>
         <mat-step [stepControl]="onboardingThirdForm" label="Document">
-          <h4 class="mb-5 my-5">Document</h4>
-          <form class="needs-validation" [formGroup]="onboardingSecondForm" novalidate>
-            <div class="row g-3">
-              <div class="col-sm-6">
-                <label for="nom-tuteur" class="form-label">Nom</label>
-                <input type="text" class="form-control" id="nom-tuteur" placeholder="" value="" required>
-                <div class="invalid-feedback">
-                  Nom requis.
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+              <h4 class="mb-5 my-5 text-center">Document</h4>
+              <form class="needs-validation" [formGroup]="onboardingThirdForm" novalidate>
+                <div class="row g-3">
+                  <div class="input-group mb-3">
+                    <input type="file" formControlName="document" id="" class="form-control" id="inputGroupFile02">
+                    <label for="" class="input-group-text" for="inputGroupFile02">Upload</label>
+                  </div>
                 </div>
-              </div>
+                <div class="row g-3">
+                  <div class="col-md-2"></div>
+                  <button matStepperPrevious class="btn btn-primary btn-md mb-2 my-5 col-md-2">Prev</button>
+                  <div class="col-md-1"></div>
+                  <button class="btn btn-warning btn-md mb-2 my-5 col-md-2"
+                    (click)="stepper.reset()">Réinitialiser</button>
+                  <div class="col-md-1"></div>
+                  <button class="btn btn-success btn-md mb-2 my-5 col-md-2" (click)="validation()">Valider</button>
+                </div>
   
-              <div class="col-sm-6">
-                <label for="prenom-tuteur" class="form-label">Prénoms</label>
-                <input type="text" class="form-control" id="prenom-tuteur" placeholder="" value="" required>
-                <div class="invalid-feedback">
-                  Prénom requis.
-                </div>
-              </div>
-  
-              <div class="col-6">
-                <label for="profession-tuteur" class="form-label">Profession</label>
-                <input type="text" class="form-control" id="profession-tuteur" placeholder="" required>
-                <div class="invalid-feedback">
-                    Profession requis.
-                </div>
-              </div>
-  
-              <div class="col-6">
-                <label for="email-tuteur" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email-tuteur" placeholder="you@example.com">
-                <div class="invalid-feedback">
-                  Veuillez entrez un mail valide.
-                </div>
-              </div>
-              <div class="col-6">
-                <label for="telephone-tuteur" class="form-label">Téléphone</label>
-                <input type="text" class="form-control" id="telephone-tuteur" placeholder="03*  **  *** **">
-              </div>
-  
-              <div class="col-6">
-                <label for="address-tuteur" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address-tuteur" placeholder="1234 Main St" required>
-                <div class="invalid-feedback">
-                  Addresse requis.
-                </div>
-              </div>
-              <div class="col-md-6">
-                <label for="pays-tuteur" class="form-label">Pays</label>
-                <select class="form-select" id="pays-tuteur" required>
-                  <option value="">Madagascar</option>
-                  <option>United States</option>
-                  <option>...</option>
-                </select>
-                <div class="invalid-feedback">
-                  Pays requis.
-                </div>
-              </div>
+              </form>
             </div>
-            <button matStepperPrevious class="w-50 btn btn-info btn-lg mb-2">Prev</button>
-            <button matStepperNext class="w-50 btn btn-danger btn-lg mb-2" (click)="stepper.reset()">Réinitialiser</button>
-            <button matStepperNext class="w-100 btn btn-success btn-lg mb-2" type="submit">Valider</button>
-          </form>
+          </div>
+          
         </mat-step>
       </mat-stepper>
     </div>

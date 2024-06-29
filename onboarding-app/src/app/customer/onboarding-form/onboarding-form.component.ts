@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-onboarding-form',
@@ -45,5 +45,12 @@ export class OnboardingFormComponent {
     this.onboardingThirdForm = this.formBuilder.group({
       document: ['',Validators.required]
     });
+  }
+  get document() {
+    return this.onboardingThirdForm.get('document') as FormControl;
+  }
+
+  validation() {
+    console.log(this.document);
   }
 }
