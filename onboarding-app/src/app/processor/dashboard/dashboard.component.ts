@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Customer } from 'src/app/shared/model/Customer';
+import { Customer } from 'src/app/shared/model/customer';
 
 @Component({
   selector: 'app-dashboard',
