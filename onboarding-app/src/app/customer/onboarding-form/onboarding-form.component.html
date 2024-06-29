@@ -1,173 +1,200 @@
 <main>
-    <div class="py-5 text-center">
-      <h2>MBC ONBOADING FORM</h2>
-    </div>
-    <div class="row">
-      <div class="col-md-2 col-lg-2"></div>
-      <div class="col-md-8 col-lg-8">
-        <h4 class="mb-3">About your company</h4>
-        <form class="needs-validation" novalidate>
-          <div class="row g-3">
-            <div class="col-md-4">
-                <label for="state" class="form-label">State</label>
-                <select class="form-select" id="state" required>
-                  <option value="">Choose...</option>
-                  <option>California</option>
+  <div class="py-5 text-center">
+    <h2>MBC ONBOADING FORM</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-lg-2"></div>
+    <div class="col-md-8 col-lg-8">
+      <mat-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="onboardingFirstForm" label="About the company">
+          <h4 class="mb-5 my-5">About the company</h4>
+          <div class="row">
+            <form class="needs-validation" [formGroup]="onboardingFirstForm" novalidate>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="purpose" class="form-label">Purpose</label>
+                  <select class="form-select" formControlName="purpose" id="purpose" required>
+                    <option *ngFor="let purpose of purposes" [value]="purpose">{{purpose}}</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="company" class="form-label">Company name</label>
+                  <input type="text" class="form-control" formControlName="company" id="company" placeholder="" value=""
+                    required>
+                  <div class="invalid-feedback">
+                    Valid first name is required.
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="entity" class="form-label">Entity type</label>
+                  <select class="form-select" formControlName="entity" id="entity" required>
+                    <option *ngFor="let entity of entities" [value]="entity">{{entity}}</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="activity" class="form-label">Business activity</label>
+                  <select class="form-select" formControlName="activity" id="activity" required>
+                    <option *ngFor="let activity of activities" [value]="activity">{{activity}}</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="licence" class="form-label">Licence</label>
+                  <input type="text" class="form-control" formControlName="licence" id="licence" placeholder="" value=""
+                    required>
+                  <div class="invalid-feedback">
+                    Valid last name is required.
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="country" class="form-label">Country</label>
+                  <select class="form-select" formControlName="country" id="country" required>
+                    <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="registration-number" class="form-label">Registration number</label>
+                  <input type="text" class="form-control" formControlName="registrationNumber" id="registration-number"
+                    placeholder="" value="" required>
+                  <div class="invalid-feedback">
+                    Valid last name is required.
+                  </div>
+                </div>
+      
+                <div class="col-6">
+                  <label for="address" class="form-label">Date of incorporation</label>
+                  <input type="date" class="form-control" formControlName="dateOfIncorporation" id="address"
+                    placeholder="1234 Main St" required>
+                  <div class="invalid-feedback">
+                    Please enter your shipping address.
+                  </div>
+                </div>
+              </div>
+              <button matStepperNext class="w-100 btn btn-info btn-lg my-3" type="submit">Next</button>
+            </form>
+          </div>
+          
+        </mat-step>
+        <mat-step [stepControl]="onboardingSecondForm" label="About the Director and Applicant">
+          <h4 class="mb-5 my-5">About the Director and Applicant</h4>
+          <form class="needs-validation" [formGroup]="onboardingThirdForm" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="director" class="form-label">Name of Director/Shareholders</label>
+                <input type="text" class="form-control" formControlName="director" id="director" placeholder="" value=""
+                  required>
+                <div class="invalid-feedback">
+                  Valid last name is required.
+                </div>
+              </div>
+    
+              <div class="col-md-6">
+                <label for="director" class="form-label">Passeport number of Director/Shareholders</label>
+                <input type="text" class="form-control" formControlName="director" id="director" placeholder="" value=""
+                  required>
+                <div class="invalid-feedback">
+                  Valid last name is required.
+                </div>
+              </div>
+    
+              <div class="col-md-6">
+                <label for="director" class="form-label">Applicant</label>
+                <input type="text" class="form-control" formControlName="director" id="director" placeholder="" value=""
+                  required>
+                <div class="invalid-feedback">
+                  Valid last name is required.
+                </div>
+              </div>
+    
+    
+              <div class="col-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                <div class="invalid-feedback">
+                  Please enter a valid email address for shipping updates.
+                </div>
+              </div>
+            </div>
+            <button matStepperPrevious class="w-50 btn btn-info btn-lg my-3">Prev</button>
+            <button matStepperNext class="w-50 btn btn-success btn-lg my-3">Next</button>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="onboardingThirdForm" label="Document">
+          <h4 class="mb-5 my-5">Document</h4>
+          <form class="needs-validation" [formGroup]="onboardingSecondForm" novalidate>
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label for="nom-tuteur" class="form-label">Nom</label>
+                <input type="text" class="form-control" id="nom-tuteur" placeholder="" value="" required>
+                <div class="invalid-feedback">
+                  Nom requis.
+                </div>
+              </div>
+  
+              <div class="col-sm-6">
+                <label for="prenom-tuteur" class="form-label">Prénoms</label>
+                <input type="text" class="form-control" id="prenom-tuteur" placeholder="" value="" required>
+                <div class="invalid-feedback">
+                  Prénom requis.
+                </div>
+              </div>
+  
+              <div class="col-6">
+                <label for="profession-tuteur" class="form-label">Profession</label>
+                <input type="text" class="form-control" id="profession-tuteur" placeholder="" required>
+                <div class="invalid-feedback">
+                    Profession requis.
+                </div>
+              </div>
+  
+              <div class="col-6">
+                <label for="email-tuteur" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email-tuteur" placeholder="you@example.com">
+                <div class="invalid-feedback">
+                  Veuillez entrez un mail valide.
+                </div>
+              </div>
+              <div class="col-6">
+                <label for="telephone-tuteur" class="form-label">Téléphone</label>
+                <input type="text" class="form-control" id="telephone-tuteur" placeholder="03*  **  *** **">
+              </div>
+  
+              <div class="col-6">
+                <label for="address-tuteur" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address-tuteur" placeholder="1234 Main St" required>
+                <div class="invalid-feedback">
+                  Addresse requis.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="pays-tuteur" class="form-label">Pays</label>
+                <select class="form-select" id="pays-tuteur" required>
+                  <option value="">Madagascar</option>
+                  <option>United States</option>
+                  <option>...</option>
                 </select>
                 <div class="invalid-feedback">
-                  Please provide a valid state.
-                </div>
-            </div>
-            <div class="col-sm-6">
-              <label for="firstName" class="form-label">First name</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid first name is required.
-              </div>
-            </div>
-
-            <div class="col-sm-6">
-              <label for="lastName" class="form-label">Last name</label>
-              <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid last name is required.
-              </div>
-            </div>
-
-            <div class="col-12">
-              <label for="username" class="form-label">Username</label>
-              <div class="input-group has-validation">
-                <span class="input-group-text">@</span>
-                <input type="text" class="form-control" id="username" placeholder="Username" required>
-              <div class="invalid-feedback">
-                  Your username is required.
+                  Pays requis.
                 </div>
               </div>
             </div>
-
-            <div class="col-12">
-              <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
-              <div class="invalid-feedback">
-                Please enter a valid email address for shipping updates.
-              </div>
-            </div>
-
-            <div class="col-12">
-              <label for="address" class="form-label">Address</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-              <div class="invalid-feedback">
-                Please enter your shipping address.
-              </div>
-            </div>
-
-            <div class="col-12">
-              <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
-              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-            </div>
-
-            <div class="col-md-5">
-              <label for="country" class="form-label">Country</label>
-              <select class="form-select" id="country" required>
-                <option value="">Choose...</option>
-                <option>United States</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country.
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <label for="state" class="form-label">State</label>
-              <select class="form-select" id="state" required>
-                <option value="">Choose...</option>
-                <option>California</option>
-              </select>
-              <div class="invalid-feedback">
-                Please provide a valid state.
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="zip" class="form-label">Zip</label>
-              <input type="text" class="form-control" id="zip" placeholder="" required>
-              <div class="invalid-feedback">
-                Zip code required.
-              </div>
-            </div>
-          </div>
-
-          <hr class="my-4">
-
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="same-address">
-            <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
-          </div>
-
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="save-info">
-            <label class="form-check-label" for="save-info">Save this information for next time</label>
-          </div>
-
-          <hr class="my-4">
-
-          <h4 class="mb-3">Payment</h4>
-
-          <div class="my-3">
-            <div class="form-check">
-              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-              <label class="form-check-label" for="credit">Credit card</label>
-            </div>
-            <div class="form-check">
-              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-              <label class="form-check-label" for="debit">Debit card</label>
-            </div>
-            <div class="form-check">
-              <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
-              <label class="form-check-label" for="paypal">PayPal</label>
-            </div>
-          </div>
-
-          <div class="row gy-3">
-            <div class="col-md-6">
-              <label for="cc-name" class="form-label">Name on card</label>
-              <input type="text" class="form-control" id="cc-name" placeholder="" required>
-              <small class="text-muted">Full name as displayed on card</small>
-              <div class="invalid-feedback">
-                Name on card is required
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <label for="cc-number" class="form-label">Credit card number</label>
-              <input type="text" class="form-control" id="cc-number" placeholder="" required>
-              <div class="invalid-feedback">
-                Credit card number is required
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">Expiration</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-              <div class="invalid-feedback">
-                Expiration date required
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="cc-cvv" class="form-label">CVV</label>
-              <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-              <div class="invalid-feedback">
-                Security code required
-              </div>
-            </div>
-          </div>
-
-          <hr class="my-4">
-
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
-        </form>
-      </div>
+            <button matStepperPrevious class="w-50 btn btn-info btn-lg mb-2">Prev</button>
+            <button matStepperNext class="w-50 btn btn-danger btn-lg mb-2" (click)="stepper.reset()">Réinitialiser</button>
+            <button matStepperNext class="w-100 btn btn-success btn-lg mb-2" type="submit">Valider</button>
+          </form>
+        </mat-step>
+      </mat-stepper>
     </div>
-  </main>
- 
+  </div>
+</main>
