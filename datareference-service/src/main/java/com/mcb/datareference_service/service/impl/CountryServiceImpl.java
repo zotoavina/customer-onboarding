@@ -48,8 +48,9 @@ public class CountryServiceImpl implements CountryService {
         log.info("Get country using name : {}", countryName);
         final var url = apiBaseUrl + "/name/" + countryName + "?fields=name&fullText=true";
         try {
-            ResponseEntity<Country> response = restTemplate.getForEntity(url, Country.class);
-            return Optional.ofNullable(response.getBody())
+            ResponseEntity<Country[]> response = restTemplate.getForEntity(url, Country[].class);
+            Country foundCountry = (Objects.isNull(response.getBody())) ? null : response.getBody()[0];
+            return Optional.ofNullable(foundCountry)
                     .orElseThrow(() -> new EntityNotFoundException("No country with name " + countryName));
         } catch (HttpClientErrorException e) {
             log.warn("Error while fetching country with name {}, error {}", countryName, e.getMessage());
