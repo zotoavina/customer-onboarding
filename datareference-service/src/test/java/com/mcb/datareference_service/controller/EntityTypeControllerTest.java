@@ -1,7 +1,8 @@
 package com.mcb.datareference_service.controller;
 
-import com.mcb.datareference_service.persistence.entity.BusinessActivity;
-import com.mcb.datareference_service.service.BusinessActivityService;
+import com.mcb.datareference_service.persistence.entity.EntityType;
+import com.mcb.datareference_service.service.EntityTypeService;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -15,25 +16,23 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(BusinessActivityController.class)
-class BusinessActivityControllerTest {
+@WebMvcTest(EntityTypeController.class)
+class EntityTypeControllerTest {
 
     @MockBean
-    private BusinessActivityService activityService;
+    private EntityTypeService typeService;
 
     @Autowired
     private MockMvc mockMvc;
 
-
-    @org.junit.jupiter.api.Test
-    void findAllActivities() throws Exception {
-
+    @Test
+    void findAllEntityTypes() throws Exception {
         // arrange
-        var activities = List.of(new BusinessActivity());
-        when(activityService.getAll()).thenReturn(activities);
+        var types = List.of(new EntityType());
+        when(typeService.findAllEntityTypes()).thenReturn(types);
 
         // act and assert
-        mockMvc.perform(get("/api/v1/data/reference/activities"))
+        mockMvc.perform(get("/api/v1/data/reference/entity-typ"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("data")));
     }
