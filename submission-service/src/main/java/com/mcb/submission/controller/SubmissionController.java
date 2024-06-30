@@ -35,15 +35,15 @@ public class SubmissionController {
                                                     @RequestParam Map<String, String> submissionParam) {
         log.info("Saving customer application: {}", submissionParam);
         CustomerApplication customerApplication = submisionMapper.convert(submissionParam);
-        HttpStatus status = HttpStatus.OK;
+        HttpStatus status = HttpStatus.CREATED;
         String message = "Success";
         try {
-            submissionService.validateAndSaveApplication(customerApplication);
+            customerApplication = submissionService.validateAndSaveApplication(customerApplication);
         } catch (Exception e) {
             log.error("Error while saving application", e);
             message = e.getMessage();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return ResponseFormatDto.buildResponse(null, status, message);
+        return ResponseFormatDto.buildResponse(customerApplication.getApplicationId(), status, message);
     }
 }

@@ -38,6 +38,7 @@ public class DataRefApiServiceImpl implements DataRefApiService {
         try {
             var resp = restTemplate.postForObject(msDataRefUrl, dataRefReq, ResponseFormatDto.class);
             var mapper = new ObjectMapper();
+            assert resp != null;
             var respDto = mapper.convertValue(resp.getData(), DataCheckRespDto.class);
             log.info("Data ref check response: {}", respDto);
             customerApplication.setCountryName(respDto.getCountry().name());

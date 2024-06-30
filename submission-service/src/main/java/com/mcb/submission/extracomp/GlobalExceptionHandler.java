@@ -25,8 +25,8 @@ public class GlobalExceptionHandler {
     /**
      * Handle exception due to the failure while validating dto
      *
-     * @param e
-     * @return
+     * @param e the exception to be handled
+     * @return ResponseEntity
      */
     @ExceptionHandler({MethodArgumentNotValidException.class, InvalidParameterException.class,
             ConstraintViolationException.class})
