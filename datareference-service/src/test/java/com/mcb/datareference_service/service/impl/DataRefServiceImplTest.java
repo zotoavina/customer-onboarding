@@ -79,5 +79,4 @@ class DataRefServiceImplTest {
                 () -> assertNotNull(respDto.getPurpose())
         );
     }
-
 }
