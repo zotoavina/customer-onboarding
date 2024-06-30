@@ -61,4 +61,11 @@ public class GlobalExceptionHandler {
                 "Error while calling third party api");
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ResponseFormatDto> handleException(Exception e) {
+        log.error("Unknown Exception {}", e.getMessage());
+        return ResponseFormatDto.buildResponse(null, HttpStatus.INTERNAL_SERVER_ERROR,
+                "An Unknown error occurred");
+    }
+
 }
