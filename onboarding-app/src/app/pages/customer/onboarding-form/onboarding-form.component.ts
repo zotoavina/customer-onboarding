@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -7,11 +7,12 @@ import { Router } from '@angular/router';
   templateUrl: './onboarding-form.component.html',
   styleUrls: ['./onboarding-form.component.css']
 })
-export class OnboardingFormComponent {
+export class OnboardingFormComponent implements OnInit{
   onboardingFirstForm: FormGroup;
   onboardingSecondForm: FormGroup;
   onboardingThirdForm: FormGroup;
-  isLinear = false;
+  isLinear = true;
+  isActivityBanking = false;
 
   purposes: string[] = [ "Investment porfolio", "Account to operatelocally", 
   "Account to operate overseas", "Energy & commodiƟes financing"];
@@ -19,16 +20,16 @@ export class OnboardingFormComponent {
   entities: string[] = [ "Investment porfolio", "Account to operatelocally", 
   "Account to operate overseas", "Energy & commodiƟes financing"];
 
-  activities: string[] = [ "Investment porfolio", "Account to operatelocally", 
+  activities: string[] = [ "Banking", "Account to operatelocally", 
   "Account to operate overseas", "Energy & commodiƟes financing"];
 
   countries: string[] = [ "Investment porfolio", "Account to operatelocally", 
-  "Account to operate overseas", "Energy & commodiƟes financing"];
+  "Account to operate overseas", "Energy & commodites financing"];
 
   constructor(private formBuilder: FormBuilder, private router: Router) {
     this.onboardingFirstForm = this.formBuilder.group({
       purpose: ['', Validators.required],
-      company: ['', Validators.required],
+      company: ['', [Validators.required, Validators.minLength(3)]],
       entity: ['', Validators.required],
       activity: ['', Validators.required],
       licence: ['', Validators.required],
@@ -47,12 +48,15 @@ export class OnboardingFormComponent {
       document: ['',Validators.required]
     });
   }
-  get document() {
-    return this.onboardingThirdForm.get('document') as FormControl;
+
+  ngOnInit(): void {
+    this.onboardingFirstForm.get('activity')?.valueChanges.subscribe(value => {
+      this.isActivityBanking = value === 'Banking';
+    });
   }
 
   validation() {
-    console.log(this.document);
     this.router.navigate(['/submitted']);
   }
+
 }

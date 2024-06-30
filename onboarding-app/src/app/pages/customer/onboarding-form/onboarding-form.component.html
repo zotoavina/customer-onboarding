@@ -18,16 +18,16 @@
                     <select class="form-select" formControlName="purpose" id="purpose" required>
                       <option *ngFor="let purpose of purposes" [value]="purpose">{{purpose}}</option>
                     </select>
-                    <div class="invalid-feedback">
-                      Please provide a valid state.
-                    </div>
                   </div>
                   <div class="col-md-6">
-                    <label for="company" class="form-label">Company name</label>
-                    <input type="text" class="form-control" formControlName="company" id="company" placeholder=""
-                      value="" required>
-                    <div class="invalid-feedback">
-                      Valid first name is required.
+                    <label for="company" class="form-label mandatory">Company name</label>
+                    <input type="text" class="form-control" formControlName="company" id="company" placeholder="" value="" required>
+                    <div *ngIf="!onboardingFirstForm.get('company')?.valid && onboardingFirstForm.get('company')?.touched">
+                      <small *ngIf="onboardingFirstForm.get('company')?.hasError('required')">
+                      company name required</small>
+                      <small *ngIf="onboardingFirstForm.get('company')?.hasError('minlength')">
+                      minimum length should be 3
+                      </small>
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -35,57 +35,47 @@
                     <select class="form-select" formControlName="entity" id="entity" required>
                       <option *ngFor="let entity of entities" [value]="entity">{{entity}}</option>
                     </select>
-                    <div class="invalid-feedback">
-                      Please provide a valid state.
-                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="country" class="form-label mandatory">Country</label>
+                    <select class="form-select" formControlName="country" id="country" required>
+                      <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+                    </select>
                   </div>
                   <div class="col-md-6">
                     <label for="activity" class="form-label">Business activity</label>
                     <select class="form-select" formControlName="activity" id="activity" required>
                       <option *ngFor="let activity of activities" [value]="activity">{{activity}}</option>
                     </select>
-                    <div class="invalid-feedback">
-                      Please provide a valid state.
-                    </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6" *ngIf="isActivityBanking">
                     <label for="licence" class="form-label">Licence</label>
-                    <input type="text" class="form-control" formControlName="licence" id="licence" placeholder=""
-                      value="" required>
-                    <div class="invalid-feedback">
-                      Valid last name is required.
-                    </div>
+                    <input type="text" class="form-control" formControlName="licence" id="licence" placeholder="" value="">
                   </div>
+                  <div class="col-md-6" *ngIf="!isActivityBanking"></div>
+                  
                   <div class="col-md-6">
-                    <label for="country" class="form-label">Country</label>
-                    <select class="form-select" formControlName="country" id="country" required>
-                      <option *ngFor="let country of countries" [value]="country">{{country}}</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Please provide a valid state.
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="registration-number" class="form-label">Registration number</label>
+                    <label for="registration-number" class="form-label mandatory">Registration number</label>
                     <input type="text" class="form-control" formControlName="registrationNumber"
                       id="registration-number" placeholder="" value="" required>
-                    <div class="invalid-feedback">
-                      Valid last name is required.
-                    </div>
+                      <div *ngIf="!onboardingFirstForm.get('registrationNumber')?.valid && onboardingFirstForm.get('registrationNumber')?.touched">
+                        <small *ngIf="onboardingFirstForm.get('registrationNumber')?.hasError('required')">
+                        Registration number required</small>
+                      </div>
                   </div>
 
                   <div class="col-6">
-                    <label for="address" class="form-label">Date of incorporation</label>
-                    <input type="date" class="form-control" formControlName="dateOfIncorporation" id="address"
-                      placeholder="1234 Main St" required>
-                    <div class="invalid-feedback">
-                      Please enter your shipping address.
-                    </div>
+                    <label for="date-of-incorporation" class="form-label mandatory">Date of incorporation</label>
+                    <input type="date" class="form-control" formControlName="dateOfIncorporation" id="date-of-incorporation" required>
+                      <div *ngIf="!onboardingFirstForm.get('dateOfIncorporation')?.valid && onboardingFirstForm.get('dateOfIncorporation')?.touched">
+                        <small *ngIf="onboardingFirstForm.get('dateOfIncorporation')?.hasError('required')">
+                        Date of incorporation required</small>
+                      </div>
                   </div>
                 </div>
                 <div class="row g-3">
                   <div class="col-md-4"></div>
-                  <button matStepperNext class="btn btn-primary btn-md my-5 col-md-4">Next</button>
+                  <button matStepperNext class="btn btn-primary btn-md my-5 col-md-4" [disabled]="!onboardingFirstForm.valid">Next</button>
                 </div>
               </form>
             </div>
@@ -100,39 +90,45 @@
               <form class="needs-validation" [formGroup]="onboardingSecondForm" novalidate>
                 <div class="row g-3">
                   <div class="col-md-6">
-                    <label for="director" class="form-label">Name of Director/Shareholders</label>
+                    <label for="director" class="form-label mandatory">Name of Director/Shareholders</label>
                     <input type="text" class="form-control" formControlName="director" id="director" placeholder=""
                       value="" required>
-                    <div class="invalid-feedback">
-                      Valid last name is required.
-                    </div>
+                      <div *ngIf="!onboardingSecondForm.get('director')?.valid && onboardingSecondForm.get('director')?.touched">
+                        <small *ngIf="onboardingSecondForm.get('director')?.hasError('required')">
+                        Name of Director/Shareholders required</small>
+                      </div>
                   </div>
   
                   <div class="col-md-6">
-                    <label for="director" class="form-label">Passeport number of Director/Shareholders</label>
-                    <input type="text" class="form-control" formControlName="director" id="director" placeholder=""
+                    <label for="passport" class="form-label mandatory">Passeport number of Director/Shareholders</label>
+                    <input type="text" class="form-control" formControlName="passport" id="passport" placeholder=""
                       value="" required>
-                    <div class="invalid-feedback">
-                      Valid last name is required.
-                    </div>
+                      <div *ngIf="!onboardingSecondForm.get('passport')?.valid && onboardingSecondForm.get('passport')?.touched">
+                        <small *ngIf="onboardingSecondForm.get('passport')?.hasError('required')">
+                        Passeport numbe of Director/Shareholder required</small>
+                      </div>
                   </div>
   
                   <div class="col-md-6">
-                    <label for="director" class="form-label">Applicant</label>
-                    <input type="text" class="form-control" formControlName="director" id="director" placeholder=""
+                    <label for="applicant" class="form-label mandatory">Applicant</label>
+                    <input type="text" class="form-control" formControlName="applicant" id="applicant" placeholder=""
                       value="" required>
-                    <div class="invalid-feedback">
-                      Valid last name is required.
-                    </div>
+                      <div *ngIf="!onboardingSecondForm.get('applicant')?.valid && onboardingSecondForm.get('applicant')?.touched">
+                        <small *ngIf="onboardingSecondForm.get('applicant')?.hasError('required')">
+                        Applicant name required</small>
+                      </div>
                   </div>
   
   
                   <div class="col-6">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label mandatory">Email</label>
                     <input type="email" class="form-control" formControlName="email" id="email"
                       placeholder="you@example.com">
-                    <div class="invalid-feedback">
-                      Please enter a valid email address for shipping updates.
+                    <div *ngIf="!onboardingSecondForm.get('email')?.valid && onboardingSecondForm.get('email')?.touched">
+                      <small *ngIf="onboardingSecondForm.get('email')?.hasError('required')">
+                      Email required</small>
+                      <small *ngIf="onboardingSecondForm.get('email')?.hasError('email')">
+                      Please enter a valid email address</small>
                     </div>
                   </div>
                 </div>
@@ -140,7 +136,7 @@
                   <div class="col-md-3"></div>
                   <button matStepperPrevious class="btn btn-primary btn-md my-5 col-md-2">Prev</button>
                   <div class="col-md-2"></div>
-                  <button matStepperNext class="btn btn-primary btn-md my-5 col-md-2">Next</button>
+                  <button matStepperNext class="btn btn-primary btn-md my-5 col-md-2" [disabled]="!onboardingSecondForm.valid">Next</button>
                 </div>
               </form>
             </div>
@@ -166,7 +162,7 @@
                   <button class="btn btn-warning btn-md mb-2 my-5 col-md-2"
                     (click)="stepper.reset()">Réinitialiser</button>
                   <div class="col-md-1"></div>
-                  <button class="btn btn-success btn-md mb-2 my-5 col-md-2" (click)="validation()">Valider</button>
+                  <button class="btn btn-success btn-md mb-2 my-5 col-md-2" (click)="validation()" [disabled]="!onboardingThirdForm.valid">Valider</button>
                 </div>
   
               </form>

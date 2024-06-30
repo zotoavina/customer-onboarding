@@ -1,3 +1,12 @@
 .mat-stepper-horizontal {
     margin-top: 8px;
 }
+
+small{
+    color: red;
+}
+
+.mandatory::after{
+    content: "*";
+    color: red;
+}

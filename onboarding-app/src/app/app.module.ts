@@ -12,13 +12,15 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
 import { PagesComponent } from './pages/pages.component';
 import { FooterComponent } from './shared/component/footer/footer.component';
+import { NavbarComponent } from './shared/component/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OnboardingFormComponent,
     PagesComponent,
-    FooterComponent
+    FooterComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

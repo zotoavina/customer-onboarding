@@ -21,7 +21,7 @@ export class ApproverPageComponent {
   getSubmittedApplication(){
     this.submittedApplication = [
       {
-          id:12,
+          id:"12",
           purpose:"1",
           company:"ABC",
           entity:"3",
@@ -37,7 +37,7 @@ export class ApproverPageComponent {
           document: "photo.png,doc.pdf",
       },
       {
-        id:32,
+        id:"32",
         purpose:"1",
         company:"ABC",
         entity:"3",
@@ -53,7 +53,7 @@ export class ApproverPageComponent {
         document: "photo.png,doc.pdf",
     },
     {
-      id:4,
+      id:"4",
       purpose:"1",
       company:"ABC",
       entity:"3",
@@ -69,7 +69,7 @@ export class ApproverPageComponent {
       document: "photo.png,doc.pdf",
     },
     {
-      id:3,
+      id:"3",
       purpose:"1",
       company:"ABC",
       entity:"3",
@@ -86,11 +86,11 @@ export class ApproverPageComponent {
     }
     ]
   }
-    proceed(appId : number){
+    proceed(appId : string){
       console.log("Approve " + appId);
     }
   
-    reject(appId : number){
+    reject(appId : string){
       console.log("reject " + appId);
     }
 }

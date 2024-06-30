@@ -22,7 +22,7 @@ ngOnInit(): void {
 getSubmittedApplication(){
   this.submittedApplication = [
     {
-        id:12,
+        id:"12",
         purpose:"1",
         company:"ABC",
         entity:"3",
@@ -38,7 +38,7 @@ getSubmittedApplication(){
         document: "photo.png,doc.pdf",
     },
     {
-      id:32,
+      id:"32",
       purpose:"1",
       company:"ABC",
       entity:"3",
@@ -54,7 +54,7 @@ getSubmittedApplication(){
       document: "photo.png,doc.pdf",
   },
   {
-    id:4,
+    id:"4",
     purpose:"1",
     company:"ABC",
     entity:"3",
@@ -70,7 +70,7 @@ getSubmittedApplication(){
     document: "photo.png,doc.pdf",
   },
   {
-    id:3,
+    id:"3",
     purpose:"1",
     company:"ABC",
     entity:"3",
@@ -88,19 +88,19 @@ getSubmittedApplication(){
   ]
 }
 
-  edit(appId : number){
+  edit(appId : string){
     console.log("edit" + appId);
   }
 
-  viewDocuments(appId : number){
+  viewDocuments(appId : string){
     console.log("view documents of " + appId);
   }
 
-  proceed(appId : number){
+  proceed(appId : string){
     console.log("proceed " + appId);
   }
 
-  reject(appId : number){
+  reject(appId : string){
     console.log("reject " + appId);
   }
 
