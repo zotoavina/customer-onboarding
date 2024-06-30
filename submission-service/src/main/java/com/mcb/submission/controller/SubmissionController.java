@@ -39,13 +39,14 @@ public class SubmissionController {
     }
 
     @PostMapping(value = "/client", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseFormatDto> clientChecksApplication(@RequestBody String applicationUUID) {
-        log.info("Checking customer application: {}", applicationUUID);
+    public ResponseEntity<ResponseFormatDto> clientChecksApplication(@RequestBody Map<String, String> applicationUUID) {
+        String applicationId = applicationUUID.get("applicationUUID");
+        log.info("Checking customer application: {}", applicationId);
         HttpStatus status = HttpStatus.OK;
         String message = "Success";
         CustomerApplication customerApplication = null;
         try {
-            customerApplication = submissionService.findApplicationByApplicationIdOrElseThrow(applicationUUID);
+            customerApplication = submissionService.findApplicationByApplicationIdOrElseThrow(applicationId);
         } catch (EntityNotFoundException e) {
             log.warn(e.getMessage());
             status = HttpStatus.NOT_FOUND;
