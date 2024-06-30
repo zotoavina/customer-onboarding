@@ -50,6 +50,7 @@ public class SubmissionServiceImpl implements SubmissionService {
 
     @Override
     public @NonNull Optional<CustomerApplication> findApplicationByApplicationId(String applicationUUID) {
+        log.info("Finding customer application: {}", applicationUUID);
         return submissionRepository.findCustomerApplicationByApplicationId(applicationUUID);
     }
 
