@@ -47,7 +47,7 @@ public class CustomerApplication {
 
     @Column(nullable = false)
     private String activityName;
-    
+
     private String licence;
 
     @Column(nullable = false)
@@ -83,4 +83,9 @@ public class CustomerApplication {
 
     @Column(nullable = false)
     private LocalDateTime submissionDate = LocalDateTime.now();
+
+    private LocalDateTime modificationDate;
+
+    @ManyToOne(optional = false)
+    private ApplicationStatus currentStatus;
 }

@@ -2,6 +2,7 @@ package com.mcb.submission.service.impl;
 
 import com.mcb.submission.persistence.entity.CustomerApplication;
 import com.mcb.submission.persistence.repository.SubmissionRepository;
+import com.mcb.submission.service.ApplicationStatusService;
 import com.mcb.submission.service.DataRefApiService;
 import com.mcb.submission.service.SubmissionService;
 import jakarta.persistence.EntityNotFoundException;
@@ -22,13 +23,16 @@ public class SubmissionServiceImpl implements SubmissionService {
     private final SubmissionRepository submissionRepository;
 
     private final DataRefApiService dataRefApiService;
+    private final ApplicationStatusService applicationStatusService;
     private final Validator validator;
 
     public SubmissionServiceImpl(SubmissionRepository submissionRepository,
                                  DataRefApiService dataRefApiService,
+                                 ApplicationStatusService statusService,
                                  Validator validator) {
         this.submissionRepository = submissionRepository;
         this.dataRefApiService = dataRefApiService;
+        applicationStatusService = statusService;
         this.validator = validator;
     }
 
@@ -45,6 +49,8 @@ public class SubmissionServiceImpl implements SubmissionService {
             throw new ConstraintViolationException("Validation failed: " + sb, violations);
         }
         dataRefApiService.checkDataRef(customerApplication);
+        var status = applicationStatusService.findByStatusCodeOrElseThrow("SUBMITTED");
+        customerApplication.setCurrentStatus(status);
         return submissionRepository.save(customerApplication);
     }
 
