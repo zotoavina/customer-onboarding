@@ -3,10 +3,12 @@ package com.mcb.submission.persistence.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -22,6 +24,10 @@ public class CustomerApplication {
     private String applicationId = UUID.randomUUID().toString();
 
     @Column(nullable = false)
+    @NotEmpty
+    private String applyingPurposeUuid;
+
+    @Column(nullable = false)
     private String applyingPurpose;
 
     @NotEmpty
@@ -29,7 +35,11 @@ public class CustomerApplication {
     private String companyName;
 
     @Column(nullable = false)
+    @NotEmpty
     private String entityTypeUuid;
+
+    @Column(nullable = false)
+    private String entityTypeName;
 
     @Column(nullable = false)
     private String activityUuid;
@@ -39,9 +49,12 @@ public class CustomerApplication {
     private String licence;
 
     @Column(nullable = false)
-    private String countryUuid;
+    @NotEmpty
+    private String countryName;
 
     @Column(nullable = false)
+    @NotEmpty
+    @Pattern(regexp = "\\d+", message = "Registration number must contain only numeric values")
     private String registrationNumber;
 
 
@@ -53,6 +66,7 @@ public class CustomerApplication {
     private String directorName;
 
     @NotEmpty
+    @Pattern(regexp = "^[A-Z0-9]+$", message = "Director passport number must be alphanumeric and uppercase")
     @Column(nullable = false)
     private String directorPassportNumber;
 
@@ -65,4 +79,6 @@ public class CustomerApplication {
     @Column(nullable = false)
     private String emailForCom;
 
+    @Column(nullable = false)
+    private LocalDateTime submissionDate = LocalDateTime.now();
 }
