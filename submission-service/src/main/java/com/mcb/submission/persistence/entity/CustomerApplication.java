@@ -41,11 +41,13 @@ public class CustomerApplication {
     @Column(nullable = false)
     private String entityTypeName;
 
+    @NotEmpty
     @Column(nullable = false)
     private String activityUuid;
 
-    @NotEmpty
     @Column(nullable = false)
+    private String activityName;
+    
     private String licence;
 
     @Column(nullable = false)
