@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 public class FileServiceImpl implements FileService {
 
-    private static final long MAX_FILE_SIZE = 5 * 1024 * 1024;
-    
+    private static final long MAX_FILE_SIZE = 5 * 1024 * 1024L;
+
     private static final List<String> ALLOWED_EXTENSIONS = Arrays.asList("jpg", "png", "pdf", "docx");
 
 

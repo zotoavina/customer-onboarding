@@ -5,6 +5,7 @@ import com.mcb.submission.mapper.SubmissionMapper;
 import com.mcb.submission.persistence.entity.CustomerApplication;
 import com.mcb.submission.service.SubmissionManagementService;
 import com.mcb.submission.service.SubmissionService;
+import com.mcb.submission.service.impl.SubmissionManagementServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.mcb.submission.utils.KeyConstant.APP_UUID;
+import static com.mcb.submission.utils.KeyConstant.SUCCESS;
 
 @Slf4j
 @RestController
@@ -26,20 +28,22 @@ public class SubmissionManagementController {
     private final SubmissionService submissionService;
     private final SubmissionMapper submissionMapper;
     private final SubmissionManagementService managementService;
+    private final SubmissionManagementServiceImpl submissionManagementServiceImpl;
 
     public SubmissionManagementController(SubmissionService submissionService,
                                           SubmissionManagementService submissionManagementService,
-                                          SubmissionMapper mapper) {
+                                          SubmissionMapper mapper, SubmissionManagementServiceImpl submissionManagementServiceImpl) {
         this.submissionService = submissionService;
         managementService = submissionManagementService;
         this.submissionMapper = mapper;
+        this.submissionManagementServiceImpl = submissionManagementServiceImpl;
     }
 
     @GetMapping("/{applicationUUID}")
     public ResponseEntity<ResponseFormatDto> getCustomerApplication(@PathVariable String applicationUUID) {
         log.info("Checking customer application: {}", applicationUUID);
         HttpStatus status = HttpStatus.OK;
-        String message = "Success";
+        String message = SUCCESS;
         CustomerApplication customerApplication = null;
         try {
             customerApplication = submissionService.findApplicationByApplicationIdOrElseThrow(applicationUUID);
@@ -137,5 +141,26 @@ public class SubmissionManagementController {
         }
 
         return ResponseFormatDto.buildResponse(customerApplication, status, message);
+    }
+
+    @GetMapping("/submitted")
+    public ResponseEntity<ResponseFormatDto> getListOfSubmittedApplications() {
+        log.info("Get list of application to be proceeded by processor");
+        var applications = submissionManagementServiceImpl.getListOfSubmissionBasedOnStatus("SUBMITTED");
+        return ResponseFormatDto.buildResponse(applications, HttpStatus.OK, SUCCESS);
+    }
+
+    @GetMapping("/proceeded")
+    public ResponseEntity<ResponseFormatDto> getListOfProceededApplications() {
+        log.info("Get list of application to be approved or rejected by approver");
+        var applications = submissionManagementServiceImpl.getListOfSubmissionBasedOnStatus("PROCEEDED");
+        return ResponseFormatDto.buildResponse(applications, HttpStatus.OK, SUCCESS);
+    }
+
+    @GetMapping("kpi")
+    public ResponseEntity<ResponseFormatDto> getApplicationKpi() {
+        log.info("Get application kpi");
+        var applications = submissionManagementServiceImpl.getListOfSubmissionBasedOnStatus("PROCEEDED");
+        return ResponseFormatDto.buildResponse(applications, HttpStatus.OK, SUCCESS);
     }
 }

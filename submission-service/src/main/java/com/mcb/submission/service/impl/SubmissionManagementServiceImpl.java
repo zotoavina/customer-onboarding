@@ -38,8 +38,9 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
     @Override
     public List<CustomerApplication> getListOfSubmissionBasedOnStatus(String status) {
         log.info("Getting application having status {}", status);
-        var appStatus = statusService.findByStatusCodeOrElseThrow(status);
-        return getListOfSubmissionBasedOnStatus(appStatus);
+        var appStatus = statusService.findByStatusCode(status);
+        if (appStatus.isEmpty()) return List.of();
+        return getListOfSubmissionBasedOnStatus(appStatus.get());
     }
 
     @Override
