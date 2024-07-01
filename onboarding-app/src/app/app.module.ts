@@ -13,6 +13,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { PagesComponent } from './pages/pages.component';
 import { FooterComponent } from './shared/component/footer/footer.component';
 import { NavbarComponent } from './shared/component/navbar/navbar.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NavbarComponent } from './shared/component/navbar/navbar.component';
     MatButtonModule,
     MatFormFieldModule,
     MatStepperModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

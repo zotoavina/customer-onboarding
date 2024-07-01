@@ -39,7 +39,7 @@
                   <div class="col-md-6">
                     <label for="country" class="form-label mandatory">Country</label>
                     <select class="form-select" formControlName="country" id="country" required>
-                      <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+                      <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                     </select>
                   </div>
                   <div class="col-md-6">

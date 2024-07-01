@@ -7,8 +7,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class HttpServiceService {
-
   host: string = environment.host;
+
   constructor(private http: HttpClient) {}
 
   public post<T>(url: string, body: any): Observable<any> {

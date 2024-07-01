@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
+import { DataReferenceServiceService } from 'src/app/services/data-reference-service.service';
+import { Country } from 'src/app/shared/model/country';
 
 @Component({
   selector: 'app-onboarding-form',
@@ -14,6 +17,7 @@ export class OnboardingFormComponent implements OnInit{
   isLinear = true;
   isActivityBanking = false;
 
+
   purposes: string[] = [ "Investment porfolio", "Account to operatelocally", 
   "Account to operate overseas", "Energy & commodiƟes financing"];
 
@@ -23,10 +27,14 @@ export class OnboardingFormComponent implements OnInit{
   activities: string[] = [ "Banking", "Account to operatelocally", 
   "Account to operate overseas", "Energy & commodiƟes financing"];
 
-  countries: string[] = [ "Investment porfolio", "Account to operatelocally", 
-  "Account to operate overseas", "Energy & commodites financing"];
+  countries: Country[] = [];
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder, 
+    private router: Router,
+    private dataReferenceSrv: DataReferenceServiceService
+  ) {
+    this.getAllCountries();
     this.onboardingFirstForm = this.formBuilder.group({
       purpose: ['', Validators.required],
       company: ['', [Validators.required, Validators.minLength(3)]],
@@ -57,6 +65,15 @@ export class OnboardingFormComponent implements OnInit{
 
   validation() {
     this.router.navigate(['/submitted']);
+  }
+
+  getAllCountries(){
+     this.dataReferenceSrv.getAllCountries()
+    .pipe(
+      map((data: { data: Country[]; }) => {
+        this.countries =  data.data;
+      }))
+    .subscribe();
   }
 
 }
