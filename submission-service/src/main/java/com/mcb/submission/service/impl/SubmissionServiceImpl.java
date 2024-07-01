@@ -1,9 +1,10 @@
 package com.mcb.submission.service.impl;
 
-import com.mcb.submission.persistence.entity.CustomerApplication;
+import com.mcb.submission.persistence.entity.Application;
 import com.mcb.submission.persistence.repository.SubmissionRepository;
 import com.mcb.submission.service.ApplicationStatusService;
 import com.mcb.submission.service.DataRefApiService;
+import com.mcb.submission.service.DocumentService;
 import com.mcb.submission.service.SubmissionService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
@@ -12,7 +13,9 @@ import jakarta.validation.Validator;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -26,51 +29,57 @@ public class SubmissionServiceImpl implements SubmissionService {
     private final DataRefApiService dataRefApiService;
     private final ApplicationStatusService applicationStatusService;
     private final Validator validator;
+    private final DocumentService documentService;
 
     public SubmissionServiceImpl(SubmissionRepository submissionRepository,
                                  DataRefApiService dataRefApiService,
                                  ApplicationStatusService statusService,
+                                 DocumentService docServ,
                                  Validator validator) {
         this.submissionRepository = submissionRepository;
         this.dataRefApiService = dataRefApiService;
         applicationStatusService = statusService;
+        documentService = docServ;
         this.validator = validator;
     }
 
     @Override
-    public void validateApplicationData(@NonNull CustomerApplication customerApplication) {
+    public void validateApplicationData(@NonNull Application application) {
         log.info("Validating application's information");
-        Objects.requireNonNull(customerApplication);
-        Set<ConstraintViolation<CustomerApplication>> violations = validator.validate(customerApplication);
+        Objects.requireNonNull(application);
+        Set<ConstraintViolation<Application>> violations = validator.validate(application);
 
         if (!violations.isEmpty()) {
             StringBuilder sb = new StringBuilder();
-            for (ConstraintViolation<CustomerApplication> violation : violations) {
+            for (ConstraintViolation<Application> violation : violations) {
                 sb.append(violation.getMessage()).append("\n");
             }
             throw new ConstraintViolationException("Validation failed: " + sb, violations);
         }
-        dataRefApiService.checkDataRef(customerApplication);
+        dataRefApiService.checkDataRef(application);
     }
 
     @Override
-    public @NonNull CustomerApplication validateAndSaveApplication(@NonNull CustomerApplication customerApplication) {
-        log.info("Saving customer application: {}", customerApplication.getApplicationId());
-        validateApplicationData(customerApplication);
+    public @NonNull Application validateAndSaveApplication(@NonNull Application application,
+                                                           @NonNull MultipartFile file) throws IOException {
+        log.info("Saving customer application: {}", application.getApplicationId());
+        validateApplicationData(application);
         var status = applicationStatusService.findByStatusCodeOrElseThrow("SUBMITTED");
-        customerApplication.setCurrentStatus(status);
-        return submissionRepository.save(customerApplication);
+        application.setCurrentStatus(status);
+        application = submissionRepository.save(application);
+        documentService.saveDocument(application, file);
+        return application;
     }
 
     @Override
-    public @NonNull Optional<CustomerApplication> findApplicationByApplicationId(String applicationUUID) {
+    public @NonNull Optional<Application> findApplicationByApplicationId(String applicationUUID) {
         log.info("Finding customer application: {}", applicationUUID);
         return submissionRepository.findCustomerApplicationByApplicationId(applicationUUID);
     }
 
 
     @Override
-    public @NonNull CustomerApplication findApplicationByApplicationIdOrElseThrow(String applicationUUID) {
+    public @NonNull Application findApplicationByApplicationIdOrElseThrow(String applicationUUID) {
         return findApplicationByApplicationId(applicationUUID)
                 .orElseThrow(() -> new EntityNotFoundException("No application with uuid identifier " + applicationUUID));
     }

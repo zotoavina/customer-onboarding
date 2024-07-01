@@ -1,21 +1,24 @@
 package com.mcb.submission.service;
 
-import com.mcb.submission.persistence.entity.CustomerApplication;
+import com.mcb.submission.persistence.entity.Application;
 import lombok.NonNull;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public interface SubmissionService {
 
     @NonNull
-    Optional<CustomerApplication> findApplicationByApplicationId(String applicationUUID);
+    Optional<Application> findApplicationByApplicationId(String applicationUUID);
 
 
-    void validateApplicationData(@NonNull CustomerApplication customerApplication);
-
-    @NonNull
-    CustomerApplication validateAndSaveApplication(@NonNull CustomerApplication customerApplication);
+    void validateApplicationData(@NonNull Application application);
 
     @NonNull
-    CustomerApplication findApplicationByApplicationIdOrElseThrow(String applicationUUID);
+    Application validateAndSaveApplication(@NonNull Application application,
+                                           @NonNull MultipartFile document) throws IOException;
+
+    @NonNull
+    Application findApplicationByApplicationIdOrElseThrow(String applicationUUID);
 }

@@ -1,17 +1,17 @@
 package com.mcb.submission.service;
 
+import com.mcb.submission.persistence.entity.Application;
 import com.mcb.submission.persistence.entity.ApplicationStatus;
-import com.mcb.submission.persistence.entity.CustomerApplication;
 
 import java.util.List;
 
 public interface SubmissionManagementService {
 
-    List<CustomerApplication> getListOfSubmissionBasedOnStatus(ApplicationStatus status);
+    List<Application> getListOfSubmissionBasedOnStatus(ApplicationStatus status);
 
-    List<CustomerApplication> getListOfSubmissionBasedOnStatus(String status);
+    List<Application> getListOfSubmissionBasedOnStatus(String status);
 
-    CustomerApplication updateCustomerApplication(CustomerApplication application);
+    Application updateCustomerApplication(Application application);
 
     void proceedApplication(String applicationId);
 

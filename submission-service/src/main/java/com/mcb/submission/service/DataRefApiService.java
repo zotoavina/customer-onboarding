@@ -1,8 +1,8 @@
 package com.mcb.submission.service;
 
-import com.mcb.submission.persistence.entity.CustomerApplication;
+import com.mcb.submission.persistence.entity.Application;
 
 public interface DataRefApiService {
 
-    void checkDataRef(CustomerApplication customerApplication);
+    void checkDataRef(Application application);
 }

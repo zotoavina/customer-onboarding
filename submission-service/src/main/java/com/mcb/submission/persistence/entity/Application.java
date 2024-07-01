@@ -15,7 +15,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-public class CustomerApplication {
+public class Application {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

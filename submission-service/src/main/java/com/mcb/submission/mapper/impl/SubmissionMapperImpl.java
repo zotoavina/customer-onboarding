@@ -1,15 +1,15 @@
 package com.mcb.submission.mapper.impl;
 
 import com.mcb.submission.mapper.SubmissionMapper;
-import com.mcb.submission.persistence.entity.CustomerApplication;
+import com.mcb.submission.persistence.entity.Application;
 
 import java.time.LocalDate;
 import java.util.Map;
 
 public class SubmissionMapperImpl implements SubmissionMapper {
     @Override
-    public CustomerApplication convert(Map<String, String> submissionParam) {
-        var application = new CustomerApplication();
+    public Application convert(Map<String, String> submissionParam) {
+        var application = new Application();
         application.setActivityUuid(submissionParam.get("activityUuid"));
         application.setApplyingPurposeUuid(submissionParam.get("purposeUuid"));
         application.setCompanyName(submissionParam.get("companyName"));

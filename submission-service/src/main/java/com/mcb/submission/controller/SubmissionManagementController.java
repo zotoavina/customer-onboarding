@@ -2,7 +2,7 @@ package com.mcb.submission.controller;
 
 import com.mcb.submission.dto.ResponseFormatDto;
 import com.mcb.submission.mapper.SubmissionMapper;
-import com.mcb.submission.persistence.entity.CustomerApplication;
+import com.mcb.submission.persistence.entity.Application;
 import com.mcb.submission.service.SubmissionManagementService;
 import com.mcb.submission.service.SubmissionService;
 import com.mcb.submission.service.impl.SubmissionManagementServiceImpl;
@@ -44,15 +44,15 @@ public class SubmissionManagementController {
         log.info("Checking customer application: {}", applicationUUID);
         HttpStatus status = HttpStatus.OK;
         String message = SUCCESS;
-        CustomerApplication customerApplication = null;
+        Application application = null;
         try {
-            customerApplication = submissionService.findApplicationByApplicationIdOrElseThrow(applicationUUID);
+            application = submissionService.findApplicationByApplicationIdOrElseThrow(applicationUUID);
         } catch (EntityNotFoundException e) {
             log.warn(e.getMessage());
             status = HttpStatus.NOT_FOUND;
             message = e.getMessage();
         }
-        return ResponseFormatDto.buildResponse(customerApplication, status, message);
+        return ResponseFormatDto.buildResponse(application, status, message);
     }
 
 
@@ -124,12 +124,12 @@ public class SubmissionManagementController {
         var appUUID = submissionParam.get(APP_UUID);
         log.info("Update customer application having id {} new values: {}"
                 , appUUID, submissionParam);
-        CustomerApplication customerApplication = submissionMapper.convert(submissionParam);
-        customerApplication.setApplicationId(appUUID);
+        Application application = submissionMapper.convert(submissionParam);
+        application.setApplicationId(appUUID);
         HttpStatus status = HttpStatus.OK;
         String message = "Application updated";
         try {
-            managementService.updateCustomerApplication(customerApplication);
+            managementService.updateCustomerApplication(application);
         } catch (EntityNotFoundException e) {
             log.warn("Failed to update application {} due to {}", appUUID, e.getMessage());
             message = e.getMessage();
@@ -140,7 +140,7 @@ public class SubmissionManagementController {
             status = HttpStatus.BAD_REQUEST;
         }
 
-        return ResponseFormatDto.buildResponse(customerApplication, status, message);
+        return ResponseFormatDto.buildResponse(application, status, message);
     }
 
     @GetMapping("/submitted")

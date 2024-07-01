@@ -1,7 +1,7 @@
 package com.mcb.submission.service.impl;
 
+import com.mcb.submission.persistence.entity.Application;
 import com.mcb.submission.persistence.entity.ApplicationStatus;
-import com.mcb.submission.persistence.entity.CustomerApplication;
 import com.mcb.submission.persistence.repository.SubmissionRepository;
 import com.mcb.submission.service.ApplicationStatusService;
 import com.mcb.submission.service.SubmissionManagementService;
@@ -31,12 +31,12 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
 
 
     @Override
-    public List<CustomerApplication> getListOfSubmissionBasedOnStatus(ApplicationStatus status) {
+    public List<Application> getListOfSubmissionBasedOnStatus(ApplicationStatus status) {
         return submissionRepository.findCustomerApplicationByCurrentStatus(status);
     }
 
     @Override
-    public List<CustomerApplication> getListOfSubmissionBasedOnStatus(String status) {
+    public List<Application> getListOfSubmissionBasedOnStatus(String status) {
         log.info("Getting application having status {}", status);
         var appStatus = statusService.findByStatusCode(status);
         if (appStatus.isEmpty()) return List.of();
@@ -44,9 +44,9 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
     }
 
     @Override
-    public CustomerApplication updateCustomerApplication(CustomerApplication application) {
+    public Application updateCustomerApplication(Application application) {
         log.info("Update application having id {}", application.getApplicationId());
-        CustomerApplication originalApp = submissionService.
+        Application originalApp = submissionService.
                 findApplicationByApplicationIdOrElseThrow(application.getApplicationId());
         if (!originalApp.checkStatus("SUBMITTED"))
             throw new IllegalStateException("Already proceeded application can't be updated");
@@ -59,7 +59,7 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
     @Override
     public void proceedApplication(String applicationId) {
         log.info("Proceed application having id : {}", applicationId);
-        CustomerApplication application = submissionService
+        Application application = submissionService
                 .findApplicationByApplicationIdOrElseThrow(applicationId);
         if (!application.checkStatus("SUBMITTED"))
             throw new IllegalStateException("Application has already been proceeded");
@@ -73,7 +73,7 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
     @Override
     public void rejectApplication(String applicationId) {
         log.info("reject application having id : {}", applicationId);
-        CustomerApplication application = submissionService
+        Application application = submissionService
                 .findApplicationByApplicationIdOrElseThrow(applicationId);
         if (application.checkStatus("APPROVED"))
             throw new IllegalStateException("Already approved application can't be rejected");
@@ -87,7 +87,7 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
     @Override
     public void approveApplication(String applicationId) {
         log.info("approve application having id : {}", applicationId);
-        CustomerApplication application = submissionService
+        Application application = submissionService
                 .findApplicationByApplicationIdOrElseThrow(applicationId);
         if (!application.checkStatus("PROCEEDED"))
             throw new IllegalStateException("Application should be proceeded before approval");
