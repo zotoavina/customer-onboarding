@@ -54,8 +54,9 @@ public class DocumentServiceImpl implements DocumentService {
         assert filename != null;
         String extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
 
-        ApplicationDocument document = new ApplicationDocument();
+        var document = new ApplicationDocument();
         document.setApplication(application);
+        document.setApplicationUUID(application.getApplicationId());
         document.setFileName(filename);
         document.setEncryptedFileName(document.getDocumentUUID() + "." + extension);
         document.setPath(docUploadDir);
