@@ -52,7 +52,7 @@ public class SubmissionManagementController {
     }
 
 
-    @PatchMapping("/proceed")
+    @PatchMapping(value = "/proceed", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseFormatDto> proceedApplication(@RequestBody Map<String, String> applicationUUID) {
         String uuid = applicationUUID.get(APP_UUID);
         log.info("Proceed application having app uuid {}", uuid);
@@ -72,7 +72,7 @@ public class SubmissionManagementController {
         return ResponseFormatDto.buildResponse(null, status, message);
     }
 
-    @PatchMapping("/approve")
+    @PatchMapping(value = "/approve", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseFormatDto> approveApplication(@RequestBody Map<String, String> applicationUUID) {
         String uuid = applicationUUID.get("applicationUUID");
         log.info("Approve application having app uuid {}", uuid);
@@ -92,7 +92,7 @@ public class SubmissionManagementController {
         return ResponseFormatDto.buildResponse(null, status, message);
     }
 
-    @PatchMapping("/reject")
+    @PatchMapping(value = "/reject", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseFormatDto> rejectApplication(@RequestBody Map<String, String> applicationUUID) {
         String uuid = applicationUUID.get(APP_UUID);
         log.info("Reject application having app uuid {}", uuid);

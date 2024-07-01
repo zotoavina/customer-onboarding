@@ -64,6 +64,7 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
             throw new IllegalStateException("Application has already been proceeded");
         var status = statusService.findByStatusCodeOrElseThrow("PROCEEDED");
         application.setCurrentStatus(status);
+        application.setModificationDate(LocalDateTime.now());
         submissionRepository.save(application);
     }
 
@@ -77,6 +78,7 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
             throw new IllegalStateException("Already approved application can't be rejected");
         var status = statusService.findByStatusCodeOrElseThrow("REJECTED");
         application.setCurrentStatus(status);
+        application.setModificationDate(LocalDateTime.now());
         submissionRepository.save(application);
     }
 
@@ -90,6 +92,7 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
             throw new IllegalStateException("Application should be proceeded before approval");
         var status = statusService.findByStatusCodeOrElseThrow("APPROVED");
         application.setCurrentStatus(status);
+        application.setModificationDate(LocalDateTime.now());
         submissionRepository.save(application);
     }
 }
