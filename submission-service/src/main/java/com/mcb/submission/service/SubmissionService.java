@@ -10,6 +10,9 @@ public interface SubmissionService {
     @NonNull
     Optional<CustomerApplication> findApplicationByApplicationId(String applicationUUID);
 
+
+    void validateApplicationData(@NonNull CustomerApplication customerApplication);
+
     @NonNull
     CustomerApplication validateAndSaveApplication(@NonNull CustomerApplication customerApplication);
 

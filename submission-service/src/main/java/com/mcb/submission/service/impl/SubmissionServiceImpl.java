@@ -13,6 +13,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -37,8 +38,9 @@ public class SubmissionServiceImpl implements SubmissionService {
     }
 
     @Override
-    public @NonNull CustomerApplication validateAndSaveApplication(@NonNull CustomerApplication customerApplication) {
-        log.info("Saving customer application: {}", customerApplication.getApplicationId());
+    public void validateApplicationData(@NonNull CustomerApplication customerApplication) {
+        log.info("Validating application's information");
+        Objects.requireNonNull(customerApplication);
         Set<ConstraintViolation<CustomerApplication>> violations = validator.validate(customerApplication);
 
         if (!violations.isEmpty()) {
@@ -49,6 +51,12 @@ public class SubmissionServiceImpl implements SubmissionService {
             throw new ConstraintViolationException("Validation failed: " + sb, violations);
         }
         dataRefApiService.checkDataRef(customerApplication);
+    }
+
+    @Override
+    public @NonNull CustomerApplication validateAndSaveApplication(@NonNull CustomerApplication customerApplication) {
+        log.info("Saving customer application: {}", customerApplication.getApplicationId());
+        validateApplicationData(customerApplication);
         var status = applicationStatusService.findByStatusCodeOrElseThrow("SUBMITTED");
         customerApplication.setCurrentStatus(status);
         return submissionRepository.save(customerApplication);
@@ -59,6 +67,7 @@ public class SubmissionServiceImpl implements SubmissionService {
         log.info("Finding customer application: {}", applicationUUID);
         return submissionRepository.findCustomerApplicationByApplicationId(applicationUUID);
     }
+
 
     @Override
     public @NonNull CustomerApplication findApplicationByApplicationIdOrElseThrow(String applicationUUID) {
