@@ -16,7 +16,8 @@
                   <div class="col-md-6">
                     <label for="purpose" class="form-label">Purpose</label>
                     <select class="form-select" formControlName="purpose" id="purpose" required>
-                      <option *ngFor="let purpose of purposes" [value]="purpose">{{purpose}}</option>
+                      <option value="">Choose purpose</option>
+                      <option *ngFor="let purpose of purposes" [value]="purpose.id">{{purpose.purposeName}}</option>
                     </select>
                   </div>
                   <div class="col-md-6">
@@ -33,19 +34,22 @@
                   <div class="col-md-6">
                     <label for="entity" class="form-label">Entity type</label>
                     <select class="form-select" formControlName="entity" id="entity" required>
-                      <option *ngFor="let entity of entities" [value]="entity">{{entity}}</option>
+                      <option value="">Choose entity type</option>
+                      <option *ngFor="let entity of entities" [value]="entity.id">{{entity.name}}</option>
                     </select>
                   </div>
                   <div class="col-md-6">
                     <label for="country" class="form-label mandatory">Country</label>
                     <select class="form-select" formControlName="country" id="country" required>
+                      <option value="">Choose country</option>
                       <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                     </select>
                   </div>
                   <div class="col-md-6">
                     <label for="activity" class="form-label">Business activity</label>
                     <select class="form-select" formControlName="activity" id="activity" required>
-                      <option *ngFor="let activity of activities" [value]="activity">{{activity}}</option>
+                      <option value="">Choose activity</option>
+                      <option *ngFor="let activity of activities" [value]="activity.id">{{activity.activityName}}</option>
                     </select>
                   </div>
                   <div class="col-md-6" *ngIf="isActivityBanking">
@@ -168,7 +172,6 @@
               </form>
             </div>
           </div>
-          
         </mat-step>
       </mat-stepper>
     </div>

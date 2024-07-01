@@ -3,7 +3,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { DataReferenceServiceService } from 'src/app/services/data-reference-service.service';
+import { Activity } from 'src/app/shared/model/activity';
 import { Country } from 'src/app/shared/model/country';
+import { DataResponse } from 'src/app/shared/model/data-response';
+import { EntityType } from 'src/app/shared/model/entity-type';
+import { Purpose } from 'src/app/shared/model/purpose';
 
 @Component({
   selector: 'app-onboarding-form',
@@ -16,17 +20,9 @@ export class OnboardingFormComponent implements OnInit{
   onboardingThirdForm: FormGroup;
   isLinear = true;
   isActivityBanking = false;
-
-
-  purposes: string[] = [ "Investment porfolio", "Account to operatelocally", 
-  "Account to operate overseas", "Energy & commodiƟes financing"];
-
-  entities: string[] = [ "Investment porfolio", "Account to operatelocally", 
-  "Account to operate overseas", "Energy & commodiƟes financing"];
-
-  activities: string[] = [ "Banking", "Account to operatelocally", 
-  "Account to operate overseas", "Energy & commodiƟes financing"];
-
+  purposes: Purpose[] = [];
+  entities: EntityType[] = [];
+  activities: Activity[] = [];
   countries: Country[] = [];
 
   constructor(
@@ -34,7 +30,7 @@ export class OnboardingFormComponent implements OnInit{
     private router: Router,
     private dataReferenceSrv: DataReferenceServiceService
   ) {
-    this.getAllCountries();
+
     this.onboardingFirstForm = this.formBuilder.group({
       purpose: ['', Validators.required],
       company: ['', [Validators.required, Validators.minLength(3)]],
@@ -58,8 +54,9 @@ export class OnboardingFormComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.initializeData();
     this.onboardingFirstForm.get('activity')?.valueChanges.subscribe(value => {
-      this.isActivityBanking = value === 'Banking';
+      this.isActivityBanking = value === '1';
     });
   }
 
@@ -67,13 +64,49 @@ export class OnboardingFormComponent implements OnInit{
     this.router.navigate(['/submitted']);
   }
 
+
+  initializeData(){
+    this.getAllCountries();
+    this.getApplyingPurpose();
+    this.getActivities();
+    this.getEntityTypes();
+  }
+
   getAllCountries(){
      this.dataReferenceSrv.getAllCountries()
     .pipe(
-      map((data: { data: Country[]; }) => {
-        this.countries =  data.data;
+      map((res: DataResponse<Country> ) => {
+        console.log(res.data);
+        this.countries =  res.data;
       }))
     .subscribe();
   }
+  
+   getApplyingPurpose(){
+     this.dataReferenceSrv.getApplyingPurpose()
+    .pipe(
+      map((res: DataResponse<Purpose> ) => {
+        this.purposes =  res.data;
+      }))
+    .subscribe();
+   }
+
+  getActivities(){
+    this.dataReferenceSrv.getActivities()
+    .pipe(
+      map((res: DataResponse<Activity> ) => {
+      this.activities =  res.data;
+    }))
+  .subscribe();
+ }
+
+ getEntityTypes(){
+  this.dataReferenceSrv.getEntityTypes()
+  .pipe(
+    map((res: DataResponse<EntityType> ) => {
+    this.entities =  res.data;
+  }))
+ .subscribe();
+}
 
 }
