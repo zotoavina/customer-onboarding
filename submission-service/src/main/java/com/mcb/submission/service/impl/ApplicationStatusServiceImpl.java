@@ -7,6 +7,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 public class ApplicationStatusServiceImpl implements ApplicationStatusService {
@@ -18,8 +20,13 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
     }
 
     @Override
+    public Optional<ApplicationStatus> findByStatusCode(String statusCode) {
+        return applicationStatusRepository.findApplicationStatusByStatusCode(statusCode);
+    }
+
+    @Override
     public ApplicationStatus findByStatusCodeOrElseThrow(String statusCode) {
-        return applicationStatusRepository.findApplicationStatusByStatusCode(statusCode)
+        return findByStatusCode(statusCode)
                 .orElseThrow(() -> new EntityNotFoundException("No status with code " + statusCode));
     }
 }
