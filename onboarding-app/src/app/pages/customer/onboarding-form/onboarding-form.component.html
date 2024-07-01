@@ -15,41 +15,41 @@
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label for="purpose" class="form-label">Purpose</label>
-                    <select class="form-select" formControlName="purpose" id="purpose" required>
+                    <select class="form-select" formControlName="purposeUuid" id="purpose" required>
                       <option value="">Choose purpose</option>
-                      <option *ngFor="let purpose of purposes" [value]="purpose.id">{{purpose.purposeName}}</option>
+                      <option *ngFor="let purpose of purposes" [value]="purpose.purposeUUID">{{purpose.purposeName}}</option>
                     </select>
                   </div>
                   <div class="col-md-6">
                     <label for="company" class="form-label mandatory">Company name</label>
-                    <input type="text" class="form-control" formControlName="company" id="company" placeholder="" value="" required>
-                    <div *ngIf="!onboardingFirstForm.get('company')?.valid && onboardingFirstForm.get('company')?.touched">
-                      <small *ngIf="onboardingFirstForm.get('company')?.hasError('required')">
+                    <input type="text" class="form-control" formControlName="companyName" id="company" placeholder="" value="" required>
+                    <div *ngIf="!onboardingFirstForm.get('companyName')?.valid && onboardingFirstForm.get('companyName')?.touched">
+                      <small *ngIf="onboardingFirstForm.get('companyName')?.hasError('required')">
                       company name required</small>
-                      <small *ngIf="onboardingFirstForm.get('company')?.hasError('minlength')">
+                      <small *ngIf="onboardingFirstForm.get('companyName')?.hasError('minlength')">
                       minimum length should be 3
                       </small>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <label for="entity" class="form-label">Entity type</label>
-                    <select class="form-select" formControlName="entity" id="entity" required>
+                    <select class="form-select" formControlName="entityTypeUuid" id="entity" required>
                       <option value="">Choose entity type</option>
-                      <option *ngFor="let entity of entities" [value]="entity.id">{{entity.name}}</option>
+                      <option *ngFor="let entity of entities" [value]="entity.entityTypeUUID">{{entity.name}}</option>
                     </select>
                   </div>
                   <div class="col-md-6">
                     <label for="country" class="form-label mandatory">Country</label>
-                    <select class="form-select" formControlName="country" id="country" required>
+                    <select class="form-select" formControlName="countryName" id="country" required>
                       <option value="">Choose country</option>
                       <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                     </select>
                   </div>
                   <div class="col-md-6">
                     <label for="activity" class="form-label">Business activity</label>
-                    <select class="form-select" formControlName="activity" id="activity" required>
+                    <select class="form-select" formControlName="activityUuid" id="activity" required>
                       <option value="">Choose activity</option>
-                      <option *ngFor="let activity of activities" [value]="activity.id">{{activity.activityName}}</option>
+                      <option *ngFor="let activity of activities" [value]="activity.activityUUID">{{activity.activityName}}</option>
                     </select>
                   </div>
                   <div class="col-md-6" *ngIf="isActivityBanking">
@@ -70,9 +70,9 @@
 
                   <div class="col-6">
                     <label for="date-of-incorporation" class="form-label mandatory">Date of incorporation</label>
-                    <input type="date" class="form-control" formControlName="dateOfIncorporation" id="date-of-incorporation" required>
-                      <div *ngIf="!onboardingFirstForm.get('dateOfIncorporation')?.valid && onboardingFirstForm.get('dateOfIncorporation')?.touched">
-                        <small *ngIf="onboardingFirstForm.get('dateOfIncorporation')?.hasError('required')">
+                    <input type="date" class="form-control" formControlName="incorporationDate" id="date-of-incorporation" required>
+                      <div *ngIf="!onboardingFirstForm.get('incorporationDate')?.valid && onboardingFirstForm.get('incorporationDate')?.touched">
+                        <small *ngIf="onboardingFirstForm.get('incorporationDate')?.hasError('required')">
                         Date of incorporation required</small>
                       </div>
                   </div>
@@ -95,30 +95,30 @@
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label for="director" class="form-label mandatory">Name of Director/Shareholders</label>
-                    <input type="text" class="form-control" formControlName="director" id="director" placeholder=""
+                    <input type="text" class="form-control" value="" formControlName="directorName" id="director" placeholder=""
                       value="" required>
-                      <div *ngIf="!onboardingSecondForm.get('director')?.valid && onboardingSecondForm.get('director')?.touched">
-                        <small *ngIf="onboardingSecondForm.get('director')?.hasError('required')">
+                      <div *ngIf="!onboardingSecondForm.get('directorName')?.valid && onboardingSecondForm.get('directorName')?.touched">
+                        <small *ngIf="onboardingSecondForm.get('directorName')?.hasError('required')">
                         Name of Director/Shareholders required</small>
                       </div>
                   </div>
   
                   <div class="col-md-6">
                     <label for="passport" class="form-label mandatory">Passeport number of Director/Shareholders</label>
-                    <input type="text" class="form-control" formControlName="passport" id="passport" placeholder=""
+                    <input type="text" class="form-control" value="" formControlName="directorPassportNumber" id="passport" placeholder=""
                       value="" required>
-                      <div *ngIf="!onboardingSecondForm.get('passport')?.valid && onboardingSecondForm.get('passport')?.touched">
-                        <small *ngIf="onboardingSecondForm.get('passport')?.hasError('required')">
+                      <div *ngIf="!onboardingSecondForm.get('directorPassportNumber')?.valid && onboardingSecondForm.get('directorPassportNumber')?.touched">
+                        <small *ngIf="onboardingSecondForm.get('directorPassportNumber')?.hasError('required')">
                         Passeport numbe of Director/Shareholder required</small>
                       </div>
                   </div>
   
                   <div class="col-md-6">
                     <label for="applicant" class="form-label mandatory">Applicant</label>
-                    <input type="text" class="form-control" formControlName="applicant" id="applicant" placeholder=""
+                    <input type="text" class="form-control"  value="" formControlName="nameOfApplicant" id="applicant" placeholder=""
                       value="" required>
-                      <div *ngIf="!onboardingSecondForm.get('applicant')?.valid && onboardingSecondForm.get('applicant')?.touched">
-                        <small *ngIf="onboardingSecondForm.get('applicant')?.hasError('required')">
+                      <div *ngIf="!onboardingSecondForm.get('nameOfApplicant')?.valid && onboardingSecondForm.get('nameOfApplicant')?.touched">
+                        <small *ngIf="onboardingSecondForm.get('nameOfApplicant')?.hasError('required')">
                         Applicant name required</small>
                       </div>
                   </div>
@@ -126,12 +126,12 @@
   
                   <div class="col-6">
                     <label for="email" class="form-label mandatory">Email</label>
-                    <input type="email" class="form-control" formControlName="email" id="email"
+                    <input type="email" class="form-control" value="" formControlName="emailForCom" id="email"
                       placeholder="you@example.com">
-                    <div *ngIf="!onboardingSecondForm.get('email')?.valid && onboardingSecondForm.get('email')?.touched">
-                      <small *ngIf="onboardingSecondForm.get('email')?.hasError('required')">
+                    <div *ngIf="!onboardingSecondForm.get('emailForCom')?.valid && onboardingSecondForm.get('emailForCom')?.touched">
+                      <small *ngIf="onboardingSecondForm.get('emailForCom')?.hasError('required')">
                       Email required</small>
-                      <small *ngIf="onboardingSecondForm.get('email')?.hasError('email')">
+                      <small *ngIf="onboardingSecondForm.get('emailForCom')?.hasError('emailForCom')">
                       Please enter a valid email address</small>
                     </div>
                   </div>
@@ -155,7 +155,7 @@
               <form class="needs-validation" [formGroup]="onboardingThirdForm" novalidate>
                 <div class="row g-3">
                   <div class="input-group mb-3">
-                    <input type="file" formControlName="document" id="" class="form-control" id="inputGroupFile02">
+                    <input type="file" formControlName="file" id="" class="form-control" id="inputGroupFile02" (change)="uploadFile($event)">
                     <label for="" class="input-group-text" for="inputGroupFile02">Upload</label>
                   </div>
                 </div>
@@ -168,7 +168,6 @@
                   <div class="col-md-1"></div>
                   <button class="btn btn-success btn-md mb-2 my-5 col-md-2" (click)="validation()" [disabled]="!onboardingThirdForm.valid">Valider</button>
                 </div>
-  
               </form>
             </div>
           </div>
