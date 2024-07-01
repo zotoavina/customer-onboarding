@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -88,4 +89,10 @@ public class CustomerApplication {
 
     @ManyToOne(optional = false)
     private ApplicationStatus currentStatus;
+
+    public boolean checkStatus(String status){
+        Objects.requireNonNull(status);
+        Objects.requireNonNull(currentStatus);
+        return status.equals(currentStatus.getStatusCode());
+    }
 }
