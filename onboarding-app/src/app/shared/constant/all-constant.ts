@@ -1,4 +1,5 @@
-export const processorTableHeader : string[] = [
-   "Company","Entity", "Activity", "Country", "Registration number"
-]
+export const ROLE = {
+   PROCESSOR: "PROCESSOR",
+   APPROVER: "APPROVER"
+}
 

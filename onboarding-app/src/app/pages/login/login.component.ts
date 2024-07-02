@@ -34,10 +34,14 @@ export class LoginComponent {
           console.log(res);
           if(res.code === 200){
              console.log("connecté 200");
+             if(this.managerSrv.isProcessor()){
+              this.router.navigate(["/dashboard"]);
+             }
+             if(this.managerSrv.isApprover()){
+              this.router.navigate(["/approver"]);
+             }
           }
-          if(res.code === 400){
-            this.message = res.message;
-          }
+          this.message = res.message;
         },
         (err) =>{
           this.message = err.error.message;

@@ -72,7 +72,8 @@ export class OnboardingFormComponent implements OnInit{
       (res) =>{
         console.log(res);
         if(res.code === 201){
-          this.router.navigate(['/submitted']);
+          var uuid: string = res.data;
+          this.router.navigate(['submitted/' + uuid]);
         }
       }
     );

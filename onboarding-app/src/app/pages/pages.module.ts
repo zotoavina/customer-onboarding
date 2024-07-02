@@ -22,7 +22,7 @@ const ROUTES: Routes = [
         }
       },
       {
-        path:'submitted',
+        path:'submitted/:uuid',
         component: AppIdGenerationComponent
       },
       {

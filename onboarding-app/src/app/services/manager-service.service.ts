@@ -5,6 +5,7 @@ import { Login } from '../shared/model/login';
 import { map, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { DataResponse } from '../shared/model/data-response';
+import { ROLE } from '../shared/constant/all-constant';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ManagerServiceService {
 
   baseUrl: string = environment.submissionHost;
   token!: string;
-  role!: string;
+  role: string | null = null;
   private isAuthenticated = false;
   private authSecretKey = 'Bearer Token';
   private roleKey = 'ROLE';
@@ -32,9 +33,9 @@ export class ManagerServiceService {
       }),
       tap((response:any) => {
         this.token = response.data.token; // Store the received token 
-        this.role = response.data.role? response.data.role : "";
+        this.role = response.data.role;
         localStorage.setItem(this.authSecretKey ,this.token);
-        localStorage.setItem(this.roleKey, this.role);
+        localStorage.setItem(this.roleKey, this.role!);
         this.isAuthenticated = true;
       })
     );
@@ -52,8 +53,18 @@ export class ManagerServiceService {
   }
 
   getRole() {
-    return localStorage.getItem(this.roleKey);
+    this.role = localStorage.getItem(this.roleKey);
+    return this.role;
   }
 
+  isProcessor(){
+    if(this.getRole()?.localeCompare(ROLE.PROCESSOR) === 0){  return true}
+    return false;
+  }
+  
+  isApprover(){
+    if(this.getRole()?.localeCompare(ROLE.APPROVER) === 0){  return true}
+    return false;
+  }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, Routes } from '@angular/router';
 
 @Component({
   selector: 'app-app-id-generation',
@@ -8,10 +9,14 @@ import { Component, OnInit } from '@angular/core';
 export class AppIdGenerationComponent implements OnInit{
 
 
-  applicationID!: string ;
+  applicationID: string | null = null;
+
+  constructor(private router: ActivatedRoute){}
   
   ngOnInit(): void {
-    this.applicationID = "556 124 J80 4K0";
-  }
+   this.router.paramMap.subscribe(params => {
+     this.applicationID  = params.get('uuid');
+  });
+}
 
 }
