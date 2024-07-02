@@ -23,7 +23,7 @@ import static com.mcb.submission.utils.KeyConstant.SUCCESS;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/submission/management")
+@RequestMapping("/api/submission/management")
 @PreAuthorize("hasAnyAuthority('PROCESSOR', 'APPROVER')")
 public class SubmissionManagementController {
 

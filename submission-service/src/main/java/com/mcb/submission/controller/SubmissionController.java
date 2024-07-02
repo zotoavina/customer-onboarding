@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/submissions")
+@RequestMapping("/api/submissions")
 public class SubmissionController {
 
     private final SubmissionMapper submisionMapper;

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/data/reference/entity-types")
+@RequestMapping("/api/data/reference/entity-types")
 public class EntityTypeController {
 
     private final EntityTypeService entityTypeService;

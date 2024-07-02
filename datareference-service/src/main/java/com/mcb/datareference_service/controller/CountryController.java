@@ -16,7 +16,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/data/reference/countries")
+@RequestMapping("api/data/reference/countries")
 public class CountryController {
 
     private final CountryService countryService;
