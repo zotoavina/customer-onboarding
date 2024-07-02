@@ -20,7 +20,7 @@ class JwtTokenUtilTest {
     }
 
     @Test
-    void validateToken() throws InvalidTokenException {
+    void validateToken() {
         // arrange
         String userName = "test1@gmail.com";
 

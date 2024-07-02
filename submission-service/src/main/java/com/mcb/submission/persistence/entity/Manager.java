@@ -25,6 +25,10 @@ public class Manager implements UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
+    private String firstName;
+
+    private String lastName;
+
     @Column(nullable = false)
     private String pwd;
 

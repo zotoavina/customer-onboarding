@@ -22,7 +22,7 @@ public final class JwtTokenUtil {
     }
 
     public static String generateToken(String userName, @Nullable final Map<String, Object> additionalClaims) {
-        Objects.requireNonNull(userName, () -> "User Name for token generation must not be null");
+        Objects.requireNonNull(userName, "User Name for token generation must not be null");
         JwtBuilder jwtBuilder = Jwts.builder()
                 .issuer("E-LAHATRA")
                 .subject(userName)
