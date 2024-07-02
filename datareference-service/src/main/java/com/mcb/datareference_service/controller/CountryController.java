@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("api/v1/data/reference/countries")
@@ -25,7 +27,9 @@ public class CountryController {
 
     @GetMapping("")
     public ResponseEntity<ResponseFormatDto> getAllCountries() {
-        return ResponseFormatDto.buildResponse(countryService.getAllCountries(), HttpStatus.OK);
+        var countries = List.of(new Country("Madagascar", "mg"),
+                new Country("France", "fr"));
+        return ResponseFormatDto.buildResponse(countries, HttpStatus.OK);
     }
 
     @GetMapping("/name/{countryName}")

@@ -4,7 +4,7 @@ CREATE TABLE `applying_purpose` (
                                     `purposeuuid` varchar(255) NOT NULL,
                                     PRIMARY KEY (`id`),
                                     UNIQUE KEY `UKg3bw76298atmlcojh6jk54sbu` (`purposeuuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- dataref_db.business_activity definition
 
@@ -14,7 +14,7 @@ CREATE TABLE `business_activity` (
                                      `activityuuid` varchar(255) NOT NULL,
                                      PRIMARY KEY (`id`),
                                      UNIQUE KEY `UKos1lgjb2gtblcfscbc64cgbn3` (`activityuuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- dataref_db.entity_type definition
 
@@ -24,7 +24,7 @@ CREATE TABLE `entity_type` (
                                `name` varchar(255) NOT NULL,
                                PRIMARY KEY (`id`),
                                UNIQUE KEY `UKr1xfvnsyr6cyp08pvh72nx8un` (`entity_typeuuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO applying_purpose
 (purpose_name, purposeuuid) VALUES('Investment portfolio', 'f877bc1d-9728-4203-a82a-9623c1c4627e');
