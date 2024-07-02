@@ -7,6 +7,7 @@ import com.mcb.submission.service.ApplicationStatusService;
 import com.mcb.submission.service.SubmissionManagementService;
 import com.mcb.submission.service.SubmissionService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,7 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
     }
 
 
+    @PreAuthorize("hasAnyAuthority('APPROVER', 'PROCESSOR')")
     @Override
     public List<Application> getListOfSubmissionBasedOnStatus(ApplicationStatus status) {
         return submissionRepository.findCustomerApplicationByCurrentStatus(status);
@@ -43,6 +45,7 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
         return getListOfSubmissionBasedOnStatus(appStatus.get());
     }
 
+    @PreAuthorize("hasAnyAuthority('PROCESSOR')")
     @Override
     public Application updateCustomerApplication(Application application) {
         log.info("Update application having id {}", application.getApplicationId());
@@ -55,6 +58,7 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
         return submissionRepository.save(application);
     }
 
+    @PreAuthorize("hasAnyAuthority('PROCESSOR')")
     @Transactional
     @Override
     public void proceedApplication(String applicationId) {
@@ -69,6 +73,7 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
         submissionRepository.save(application);
     }
 
+    @PreAuthorize("hasAnyAuthority('APPROVER', 'PROCESSOR')")
     @Transactional
     @Override
     public void rejectApplication(String applicationId) {
@@ -83,6 +88,7 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
         submissionRepository.save(application);
     }
 
+    @PreAuthorize("hasAnyAuthority('APPROVER')")
     @Transactional
     @Override
     public void approveApplication(String applicationId) {

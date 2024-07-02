@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -59,6 +60,13 @@ public class GlobalExceptionHandler {
         log.error("Api call exception {}", e.getMessage());
         return ResponseFormatDto.buildResponse(null, HttpStatus.BAD_REQUEST,
                 "Error while calling third party api");
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ResponseFormatDto> handleAuthorizationDeniedException(
+            AuthorizationDeniedException e){
+        log.warn("Restricted resource cannot be accessed {}", e.getMessage());
+        return ResponseFormatDto.buildResponse(null, HttpStatus.FORBIDDEN, "Access Denied");
     }
 
     @ExceptionHandler(Exception.class)
