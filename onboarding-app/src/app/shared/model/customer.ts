@@ -1,16 +1,26 @@
 export class Customer {
     id!:string;
-    purpose!:string;
-    company!:string;
-    entity!:string;
-    activity!:string;
+    applicationId!: string;
+    applyingPurpose!:string;
+    applyingPurposeUuid!:string;
+    companyName!:string;
+    currentStatus!: string;
+    entityTypeName!:string;
+    entityTypeUuid!: string;
+    activityName!:string;
+    activityUuid!: string;
     licence!:string;
-    country!:string;
+    countryName!:string;
     registrationNumber!:string;
     dateOfIncorporation!:string;
-    director!:string;
-    passport!:string;
-    applicant!:string;
-    email!: string;
-    document!: string
+    directorName!:string;
+    directorPassportNumber!:string;
+    nameOfApplicant!:string;
+    emailForCom!: string;
+    document!: string;
+    modificationDate!:string;
+    submissionDate!: string;
+
+
+    constructor(){}
 }

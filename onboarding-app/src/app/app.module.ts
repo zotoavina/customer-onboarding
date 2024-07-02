@@ -16,6 +16,8 @@ import { NavbarComponent } from './shared/component/navbar/navbar.component';
 import {HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './shared/security/auth.guard';
+import { HttpInterceptorRequest } from './services/http-request-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,7 @@ import { AuthGuard } from './shared/security/auth.guard';
     MatInputModule,
     HttpClientModule,
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, HttpInterceptorRequest],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

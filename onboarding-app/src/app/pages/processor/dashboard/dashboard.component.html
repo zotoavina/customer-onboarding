@@ -17,10 +17,10 @@
             </thead>
             <tbody>
                 <tr *ngFor=" let subApp of submittedApplication" class="text-center align-middle">
-                    <td class="table-success">{{subApp.company}}</td>
-                    <td>{{subApp.entity}}</td>
-                    <td>{{subApp.activity}}</td> 
-                    <td>{{subApp.country}}</td>
+                    <td class="table-success">{{subApp.companyName}}</td>
+                    <td>{{subApp.entityTypeName}}</td>
+                    <td>{{subApp.activityName}}</td> 
+                    <td>{{subApp.countryName}}</td>
                     <td>{{subApp.registrationNumber}}</td>
                     <td class="action-col">
                         <button type="button" class="btn btn-outline-warning" title="Edit" (click)="edit(subApp.id)">
@@ -42,26 +42,5 @@
             </tbody>
         </table>
     </div>
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+  
 </div>
