@@ -6,6 +6,7 @@ import { DashboardComponent } from './processor/dashboard/dashboard.component';
 import { AppIdGenerationComponent } from './customer/app-id-generation/app-id-generation.component';
 import { ApproverPageComponent } from './approver/approver-page/approver-page.component';
 import { FooterComponent } from '../shared/component/footer/footer.component';
+import { AuthGuard } from '../shared/security/auth.guard';
 
 const ROUTES: Routes = [
   {
@@ -14,7 +15,11 @@ const ROUTES: Routes = [
     children: [
       {
         path:'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'PROCESSOR'
+        }
       },
       {
         path:'submitted',
@@ -22,7 +27,11 @@ const ROUTES: Routes = [
       },
       {
         path:'approver',
-        component: ApproverPageComponent
+        component: ApproverPageComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'APPROVER'
+        }
       }
     ],
   },

@@ -15,6 +15,7 @@ import { FooterComponent } from './shared/component/footer/footer.component';
 import { NavbarComponent } from './shared/component/navbar/navbar.component';
 import {HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './pages/login/login.component';
+import { AuthGuard } from './shared/security/auth.guard';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { LoginComponent } from './pages/login/login.component';
     MatInputModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

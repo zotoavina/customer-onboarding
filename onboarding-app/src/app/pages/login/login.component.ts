@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { ManagerServiceService } from 'src/app/services/manager-service.service';
-import { DataResponse } from 'src/app/shared/model/data-response';
 import { Login } from 'src/app/shared/model/login';
 
 @Component({
@@ -30,10 +29,7 @@ export class LoginComponent {
   login(){
     if(this.loginForm.valid){
       this.userLogin = this.loginForm.value;
-      this.managerSrv.login(this.userLogin).pipe(
-        map((res: DataResponse<any> ) => {
-          return res;
-        })).subscribe(
+      this.managerSrv.login(this.userLogin).subscribe(
         (res) => {
           console.log(res);
           if(res.code === 200){
