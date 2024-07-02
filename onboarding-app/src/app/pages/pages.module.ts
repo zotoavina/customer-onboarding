@@ -5,8 +5,9 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './processor/dashboard/dashboard.component';
 import { AppIdGenerationComponent } from './customer/app-id-generation/app-id-generation.component';
 import { ApproverPageComponent } from './approver/approver-page/approver-page.component';
-import { FooterComponent } from '../shared/component/footer/footer.component';
 import { AuthGuard } from '../shared/security/auth.guard';
+import { VisualisationComponent } from './processor/visualisation/visualisation.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 const ROUTES: Routes = [
   {
@@ -16,6 +17,14 @@ const ROUTES: Routes = [
       {
         path:'dashboard',
         component: DashboardComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'PROCESSOR'
+        }
+      },
+      {
+        path:'visualisation',
+        component: VisualisationComponent,
         canActivate: [AuthGuard],
         data: {
           role: 'PROCESSOR'
@@ -41,8 +50,9 @@ const ROUTES: Routes = [
   declarations: [
     DashboardComponent, 
     AppIdGenerationComponent, 
-    ApproverPageComponent],
-  imports: [CommonModule, RouterModule.forChild(ROUTES)]
+    ApproverPageComponent,
+    VisualisationComponent],
+  imports: [CommonModule, NgxExtendedPdfViewerModule, RouterModule.forChild(ROUTES)]
 })
 
 export class PagesModule { }

@@ -17,7 +17,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './shared/security/auth.guard';
 import { HttpInterceptorRequest } from './services/http-request-interceptor.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -39,6 +39,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     MatStepperModule,
     MatInputModule,
     HttpClientModule,
+    NgxExtendedPdfViewerModule
+    
   ],
   providers: [AuthGuard, HttpInterceptorRequest],
   bootstrap: [AppComponent]

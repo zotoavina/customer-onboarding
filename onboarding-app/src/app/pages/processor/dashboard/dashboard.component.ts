@@ -44,7 +44,7 @@ getSubmittedApplication(){
     console.log("edit" + appId);
   }
 
-  viewDocuments(appId : string){
+  viewDocument(appId : string){
     console.log("view documents of " + appId);
   }
 
