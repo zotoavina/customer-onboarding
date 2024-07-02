@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OnboardingFormComponent } from './pages/customer/onboarding-form/onboarding-form.component';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   {
     path:'onboarding',
     component: OnboardingFormComponent
+  },
+  {
+    path:'login',
+    component: LoginComponent
   },
   {
     path: '',

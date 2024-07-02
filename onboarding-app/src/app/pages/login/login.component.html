@@ -1,0 +1,29 @@
+<main class="form-signin w-100 m-auto text-center">
+    <form  [formGroup]="loginForm" >
+      <strong><h1 class="text-warning text-center logo">MCB</h1></strong>
+      <h1 class="h3 mb-5">Please sign in</h1>
+  
+      <div class="form-floating">
+        <input type="email" class="form-control" formControlName="email"  id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Email address</label>
+      </div>
+      <div *ngIf="!loginForm.get('email')?.valid && loginForm.get('email')?.touched" class="text-left text-danger">
+        <small *ngIf="loginForm.get('email')?.hasError('required')">
+        email required</small>
+        <small *ngIf="loginForm.get('email')?.hasError('email')">
+        enter valid email
+        </small>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control"  formControlName="password" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+      </div>
+      <div *ngIf="!loginForm.get('password')?.valid && loginForm.get('password')?.touched" class="text-left text-danger">
+        <small *ngIf="loginForm.get('password')?.hasError('required')">
+        password required</small>
+      </div>
+      <button class="w-100 btn btn-lg btn-primary my-5" type="submit" (click)="login()"> LOG IN</button>
+      <p class="text-danger" *ngIf="message !== undefined">
+        {{message}}</p>
+    </form>
+  </main>

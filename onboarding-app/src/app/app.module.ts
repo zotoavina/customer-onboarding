@@ -14,6 +14,7 @@ import { PagesComponent } from './pages/pages.component';
 import { FooterComponent } from './shared/component/footer/footer.component';
 import { NavbarComponent } from './shared/component/navbar/navbar.component';
 import {HttpClientModule} from "@angular/common/http";
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {HttpClientModule} from "@angular/common/http";
     OnboardingFormComponent,
     PagesComponent,
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

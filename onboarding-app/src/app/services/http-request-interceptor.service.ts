@@ -19,7 +19,7 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
     'Access-Control-Allow-Origin':'*',
     'Content-Type': 'application/json',
     // 'X-Timezone-Offset': timeZone,
-    // Authorization: 'Bearer',
+    Authorization: 'Bearer',
   });
   constructor(private router: Router) {}
 
