@@ -27,9 +27,11 @@ public class SecurityConfig {
     private final JwtRequestFilter jwtRequestFilter;
     private final PasswordEncoder passwordEncoder;
     private static final String[] WHITE_LIST_URL = {
-            "/api/bo/v1/login",
             "/api/v1/submissions",
-            "/api/v1/submissions/client"};
+            "/api/v1/submission/manager",
+            "/api/v1/submissions/client",
+            "/api/v1/submission/manager/login"
+    };
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
