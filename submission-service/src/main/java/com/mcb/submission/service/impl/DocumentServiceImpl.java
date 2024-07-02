@@ -61,7 +61,7 @@ public class DocumentServiceImpl implements DocumentService {
         document.setEncryptedFileName(document.getDocumentUUID() + "." + extension);
         document.setPath(docUploadDir);
 
-        fileService.uploadFile(file, document.getDocumentUUID(), docUploadDir);
+        fileService.uploadFile(file, document.getEncryptedFileName(), docUploadDir);
 
         documentRepository.save(document);
         log.info("Application document, application id : {} saved", application.getApplicationId());

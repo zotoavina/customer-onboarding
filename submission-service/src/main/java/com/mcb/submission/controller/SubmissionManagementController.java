@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -23,6 +24,7 @@ import static com.mcb.submission.utils.KeyConstant.SUCCESS;
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/submission/management")
+@PreAuthorize("hasAnyAuthority('PROCESSOR', 'APPROVER')")
 public class SubmissionManagementController {
 
     private final SubmissionService submissionService;
@@ -39,6 +41,7 @@ public class SubmissionManagementController {
         this.submissionManagementServiceImpl = submissionManagementServiceImpl;
     }
 
+    @PreAuthorize("hasAnyAuthority('PROCESSOR')")
     @GetMapping("/{applicationUUID}")
     public ResponseEntity<ResponseFormatDto> getCustomerApplication(@PathVariable String applicationUUID) {
         log.info("Checking customer application: {}", applicationUUID);
@@ -56,6 +59,7 @@ public class SubmissionManagementController {
     }
 
 
+    @PreAuthorize("hasAnyAuthority('PROCESSOR')")
     @PatchMapping(value = "/proceed", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseFormatDto> proceedApplication(@RequestBody Map<String, String> applicationUUID) {
         String uuid = applicationUUID.get(APP_UUID);
@@ -76,6 +80,7 @@ public class SubmissionManagementController {
         return ResponseFormatDto.buildResponse(null, status, message);
     }
 
+    @PreAuthorize("hasAnyAuthority('APPROVER')")
     @PatchMapping(value = "/approve", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseFormatDto> approveApplication(@RequestBody Map<String, String> applicationUUID) {
         String uuid = applicationUUID.get("applicationUUID");
@@ -96,6 +101,7 @@ public class SubmissionManagementController {
         return ResponseFormatDto.buildResponse(null, status, message);
     }
 
+    @PreAuthorize("hasAnyAuthority('APPROVER', 'PROCESSOR')")
     @PatchMapping(value = "/reject", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseFormatDto> rejectApplication(@RequestBody Map<String, String> applicationUUID) {
         String uuid = applicationUUID.get(APP_UUID);
@@ -117,6 +123,7 @@ public class SubmissionManagementController {
     }
 
 
+    @PreAuthorize("hasAnyAuthority('PROCESSOR')")
     @PutMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ResponseFormatDto> updateApplication(
             @RequestParam @NonNull Map<String, String> submissionParam) {
@@ -143,6 +150,7 @@ public class SubmissionManagementController {
         return ResponseFormatDto.buildResponse(application, status, message);
     }
 
+    @PreAuthorize("hasAnyAuthority('PROCESSOR')")
     @GetMapping("/submitted")
     public ResponseEntity<ResponseFormatDto> getListOfSubmittedApplications() {
         log.info("Get list of application to be proceeded by processor");
@@ -150,6 +158,7 @@ public class SubmissionManagementController {
         return ResponseFormatDto.buildResponse(applications, HttpStatus.OK, SUCCESS);
     }
 
+    @PreAuthorize("hasAnyAuthority('APPROVER')")
     @GetMapping("/proceeded")
     public ResponseEntity<ResponseFormatDto> getListOfProceededApplications() {
         log.info("Get list of application to be approved or rejected by approver");
@@ -157,6 +166,7 @@ public class SubmissionManagementController {
         return ResponseFormatDto.buildResponse(applications, HttpStatus.OK, SUCCESS);
     }
 
+    @PreAuthorize("hasAnyAuthority('APPROVER', 'PROCESSOR')")
     @GetMapping("kpi")
     public ResponseEntity<ResponseFormatDto> getApplicationKpi() {
         log.info("Get application kpi");

@@ -13,6 +13,7 @@ import jakarta.validation.Validator;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -59,6 +60,7 @@ public class SubmissionServiceImpl implements SubmissionService {
         dataRefApiService.checkDataRef(application);
     }
 
+    @Transactional
     @Override
     public @NonNull Application validateAndSaveApplication(@NonNull Application application,
                                                            @NonNull MultipartFile file) throws IOException {
