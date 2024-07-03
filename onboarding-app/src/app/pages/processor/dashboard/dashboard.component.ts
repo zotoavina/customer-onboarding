@@ -40,7 +40,6 @@ getSubmittedApplication(){
 
       }
     )
-
 }
 
   edit(appId : string){

@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { Customer } from '../../../shared/model/customer';
+import { ApplicationSelectionService } from 'src/app/services/application-selection.service';
+import { Router } from '@angular/router';
+import { DataResponse } from 'src/app/shared/model/data-response';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-approver-page',
@@ -12,16 +16,32 @@ export class ApproverPageComponent {
     "Company","Entity", "Activity", "Country", "Registration number", "Action"
   ];
   
-  submittedApplication: Customer[] = []; 
+  proceededApplication: Customer[] = []; 
+
+  constructor(
+    private applicationSelectionSrv : ApplicationSelectionService,
+    private router : Router){}
   
   ngOnInit(): void {
-    this.getSubmittedApplication();
+    this.getProcessedApplication();
   }
   
-  getSubmittedApplication(){
-    this.submittedApplication = []
+  getProcessedApplication(){
+    this.proceededApplication = []
   }
-    proceed(appId : string){
+
+  getSubmittedApplication(){
+    this.applicationSelectionSrv.getListOfProceededApplication().pipe(
+      map((res: DataResponse<Customer[]>) => res)).subscribe(
+        (res) => {
+           if(res.code === 200){
+            console.log(res.data);
+            this.proceededApplication = res.data;
+           }
+        }
+      )
+  }
+    approve(appId : string){
       console.log("Approve " + appId);
     }
   
