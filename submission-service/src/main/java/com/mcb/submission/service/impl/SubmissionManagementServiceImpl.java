@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -21,13 +24,15 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
     private final SubmissionRepository submissionRepository;
     private final SubmissionService submissionService;
     private final ApplicationStatusService statusService;
+    private final ApplicationStatusServiceImpl applicationStatusServiceImpl;
 
     public SubmissionManagementServiceImpl(SubmissionRepository submissionRepository,
                                            ApplicationStatusService applicationStatusService,
-                                           SubmissionService submissionService) {
+                                           SubmissionService submissionService, ApplicationStatusServiceImpl applicationStatusServiceImpl) {
         this.submissionRepository = submissionRepository;
         statusService = applicationStatusService;
         this.submissionService = submissionService;
+        this.applicationStatusServiceImpl = applicationStatusServiceImpl;
     }
 
 
@@ -102,4 +107,22 @@ public class SubmissionManagementServiceImpl implements SubmissionManagementServ
         application.setModificationDate(LocalDateTime.now());
         submissionRepository.save(application);
     }
+
+
+    @PreAuthorize("hasAnyAuthority('APPROVER', 'PROCESSOR')")
+    public Map<String, Long> getAppKpi() {
+        Map<String, Long> appKpi = new HashMap<>();
+        var statusList = applicationStatusServiceImpl.findAll();
+        List<Object[]> count = submissionRepository.countByStatus();
+        for (var status : statusList) {
+
+            Optional<Object[]> foundStatus = count.stream()
+                    .filter(c -> status.getStatusCode().equals(c[0]))
+                    .findFirst();
+
+            appKpi.put(status.getStatusCode().toLowerCase(), foundStatus.map(s -> (Long) s[1]).orElse(0L));
+        }
+        return appKpi;
+    }
+
 }

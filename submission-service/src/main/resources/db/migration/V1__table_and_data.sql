@@ -36,7 +36,7 @@ CREATE TABLE `application`
     UNIQUE KEY `UKkf7a8vpf1qtib7lr9j1nqnj7` (`application_id`),
     KEY                        `FKr7rw2byh3ry4bfbe1movyhb4f` (`current_status_id`),
     CONSTRAINT `FKr7rw2byh3ry4bfbe1movyhb4f` FOREIGN KEY (`current_status_id`) REFERENCES `application_status` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- submission_db.application_document definition
 
@@ -84,7 +84,14 @@ CREATE TABLE `manager`
     CONSTRAINT `FKt5heartejg521t14vdagkeokc` FOREIGN KEY (`profile_id`) REFERENCES `manager_profile` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
+INSERT INTO application_status
+(status_code) VALUES('SUBMITTED');
+INSERT INTO application_status
+(status_code) VALUES('REJECTED');
+INSERT INTO application_status
+(status_code) VALUES('PROCEEDED');
+INSERT INTO application_status
+(status_code) VALUES('APPROVED');
 
 INSERT INTO manager_profile
     (profile_code)

@@ -167,10 +167,10 @@ public class SubmissionManagementController {
     }
 
     @PreAuthorize("hasAnyAuthority('APPROVER', 'PROCESSOR')")
-    @GetMapping("kpi")
+    @GetMapping("/kpi")
     public ResponseEntity<ResponseFormatDto> getApplicationKpi() {
         log.info("Get application kpi");
-        var applications = submissionManagementServiceImpl.getListOfSubmissionBasedOnStatus("PROCEEDED");
-        return ResponseFormatDto.buildResponse(applications, HttpStatus.OK, SUCCESS);
+        var appKpi = submissionManagementServiceImpl.getAppKpi();
+        return ResponseFormatDto.buildResponse(appKpi, HttpStatus.OK, SUCCESS);
     }
 }

@@ -18,6 +18,6 @@ public interface SubmissionRepository extends JpaRepository<Application, Integer
 
     List<Application> findCustomerApplicationByCurrentStatus(ApplicationStatus status);
 
-    @Query("SELECT c.currentStatus, COUNT(c) FROM Application  c GROUP BY c.currentStatus")
+    @Query("SELECT c.currentStatus.statusCode, COUNT(c) FROM Application  c GROUP BY c.currentStatus")
     List<Object[]> countByStatus();
 }
