@@ -27,4 +27,9 @@ export class ApplicationManagementService {
   rejectApplication(applicationId: any) {
     return this.processApplication(applicationId, "submission/management/reject");
   }
+
+  updateApplication(appliFormData : any){
+    return this.http.put(this.baseUrl, "submission/management/update", appliFormData);
+  }
+
 }

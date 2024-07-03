@@ -33,14 +33,18 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     console.log("intercept");
-    const modifiedReq = request.clone({
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('Bearer Token'),
-      })
-    });
+    let headers = request.headers;
+
+    if (request.url.includes('/update') || request.body instanceof FormData) {
+      headers = headers.set('Content-Type', 'multipart/form-data');
+    } else {
+      headers = headers.set('Content-Type', 'application/json');
+    }
+    headers = headers.set('Access-Control-Allow-Origin', '*')
+
     if (this.shouldIntercept(request)) {
+      headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem('Bearer Token'));
+      const modifiedReq = request.clone({ headers });
       return next.handle(modifiedReq).pipe(
         catchError((err) => {
           // this.router.navigate(['/server']);
