@@ -5,6 +5,7 @@ import {ApplicationSelectionService} from 'src/app/services/application-selectio
 import {Customer} from 'src/app/shared/model/customer';
 import {DataResponse} from 'src/app/shared/model/data-response';
 import {ApplicationManagementService} from "../../../services/application-management.service";
+import {Kpi} from "../../../shared/model/kpi";
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +20,7 @@ export class DashboardComponent implements OnInit {
   ];
 
   submittedApplication: Customer[] = [];
+  appKpi: Kpi = new Kpi();
 
   constructor(
     private applicationSelectionSrv: ApplicationSelectionService,
@@ -29,10 +31,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSubmittedApplication();
+    this.getAppKpi();
   }
 
   getSubmittedApplication() {
-    this.submittedApplication = [];
     this.applicationSelectionSrv.getListOfSubmittedApplication().pipe(
       map((res: DataResponse<Customer[]>) => res)).subscribe(
       (res) => {
@@ -45,9 +47,20 @@ export class DashboardComponent implements OnInit {
     )
   }
 
+  getAppKpi() {
+    this.applicationSelectionSrv.getApplicationKpi().pipe(
+      map((res: DataResponse<Kpi>) => res)).subscribe(
+      res => {
+        if (res.code === 200) {
+          this.appKpi = res.data;
+        }
+      }
+    )
+  }
+
   edit(appId: string) {
     console.log("edit" + appId);
-    this.router.navigate(['edit/' + appId]);
+    this.router.navigate(['mcb/edit/' + appId]);
   }
 
   viewDocument(appId: string) {
@@ -66,6 +79,7 @@ export class DashboardComponent implements OnInit {
           console.log("Proceeded");
           this.submittedApplication = this.submittedApplication
             .filter(appli => appli.applicationId != appId);
+          this.appKpi.proceeded++;
         }
       })
   }
@@ -83,6 +97,7 @@ export class DashboardComponent implements OnInit {
           console.log("Rejected");
           this.submittedApplication = this.submittedApplication
             .filter(appli => appli.applicationId != appId);
+          this.appKpi.rejected++;
         }
       }
     )

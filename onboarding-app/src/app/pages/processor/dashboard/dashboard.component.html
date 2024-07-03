@@ -4,9 +4,9 @@
     </div>
     <div class="row dashboard-info">
         <div class="col-1"></div>
-        <button type="button" class="btn btn-primary btn-lg border-primary col-3"><i class="bi bi-folder"></i> 452 Applications</button>
-        <button type="button" class="btn btn-success btn-lg border-success col-3"><i class="bi bi-folder-check"></i> 321 Proceeded</button>
-        <button type="button" class="btn btn-danger btn-lg border-danger col-3"><i class="bi bi-folder-x"></i> 112 Rejected</button>    
+        <button type="button" class="btn btn-primary btn-lg border-primary col-3"><i class="bi bi-folder"></i> {{appKpi.submitted}} Applications</button>
+        <button type="button" class="btn btn-success btn-lg border-success col-3"><i class="bi bi-folder-check"></i> {{appKpi.proceeded}} Proceeded</button>
+        <button type="button" class="btn btn-danger btn-lg border-danger col-3"><i class="bi bi-folder-x"></i> {{appKpi.rejected}} Rejected</button>
     </div>
     <div class="table-responsive py-5">
         <table class="table table-md table-hover table-bordered table-striped">
@@ -19,7 +19,7 @@
                 <tr *ngFor=" let subApp of submittedApplication" class="text-center align-middle">
                     <td class="table-success">{{subApp.companyName}}</td>
                     <td>{{subApp.entityTypeName}}</td>
-                    <td>{{subApp.activityName}}</td> 
+                    <td>{{subApp.activityName}}</td>
                     <td>{{subApp.countryName}}</td>
                     <td>{{subApp.registrationNumber}}</td>
                     <td class="action-col">
