@@ -23,6 +23,7 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
   });
 
   private whitelist: string[] = [
+    'api/v1/submission/manager/login',
     'api/v1/submissions',
     'api/v1/submissions/client'
     // Add other URLs you want to exclude from interception

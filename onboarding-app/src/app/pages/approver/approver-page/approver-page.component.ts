@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Customer } from '../../../shared/model/customer';
 import { ApplicationSelectionService } from 'src/app/services/application-selection.service';
 import { Router } from '@angular/router';
@@ -10,28 +10,26 @@ import { map } from 'rxjs';
   templateUrl: './approver-page.component.html',
   styleUrls: ['./approver-page.component.css']
 })
-export class ApproverPageComponent {
+export class ApproverPageComponent implements OnInit{
 
   processorTableHeader : string[] = [
     "Company","Entity", "Activity", "Country", "Registration number", "Action"
   ];
-  
-  proceededApplication: Customer[] = []; 
+
+  proceededApplication: Customer[] = [];
 
   constructor(
     private applicationSelectionSrv : ApplicationSelectionService,
     private router : Router){}
-  
+
   ngOnInit(): void {
     this.getProcessedApplication();
   }
-  
-  getProcessedApplication(){
-    this.proceededApplication = []
-  }
 
-  getSubmittedApplication(){
-    this.applicationSelectionSrv.getListOfProceededApplication().pipe(
+
+
+  getProcessedApplication(){
+     this.applicationSelectionSrv.getListOfProceededApplication().pipe(
       map((res: DataResponse<Customer[]>) => res)).subscribe(
         (res) => {
            if(res.code === 200){
@@ -44,7 +42,7 @@ export class ApproverPageComponent {
     approve(appId : string){
       console.log("Approve " + appId);
     }
-  
+
     reject(appId : string){
       console.log("reject " + appId);
     }

@@ -25,6 +25,6 @@ export class ApplicationManagementService {
   }
 
   rejectApplication(applicationId: any) {
-    return this.processApplication(applicationId, " submission/management/reject");
+    return this.processApplication(applicationId, "submission/management/reject");
   }
 }

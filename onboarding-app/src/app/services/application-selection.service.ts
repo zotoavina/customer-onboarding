@@ -29,6 +29,6 @@ export class ApplicationSelectionService {
   }
 
   getListOfProceededApplication() {
-    return this.http.get(this.baseUrl, "/submission/management/proceeded");
+    return this.http.get(this.baseUrl, "submission/management/proceeded");
   }
 }
