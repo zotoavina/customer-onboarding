@@ -5,7 +5,7 @@ import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   {
-    path:'onboarding',
+    path:'',
     component: OnboardingFormComponent
   },
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: '',
+    path: 'mcb',
     loadChildren: () =>
       import('./pages/pages.module').then(
         (m) => m.PagesModule
