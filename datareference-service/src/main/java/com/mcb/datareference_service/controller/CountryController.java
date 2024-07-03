@@ -27,8 +27,7 @@ public class CountryController {
 
     @GetMapping("")
     public ResponseEntity<ResponseFormatDto> getAllCountries() {
-        var countries = List.of(new Country("Madagascar", "mg"),
-                new Country("France", "fr"));
+        var countries = countryService.getAllCountries();
         return ResponseFormatDto.buildResponse(countries, HttpStatus.OK);
     }
 
