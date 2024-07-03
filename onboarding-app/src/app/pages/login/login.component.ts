@@ -16,7 +16,7 @@ export class LoginComponent {
   message: string | undefined;
 
   constructor(
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
     private router: Router,
     private managerSrv: ManagerServiceService
   ) {
@@ -35,10 +35,10 @@ export class LoginComponent {
           if(res.code === 200){
              console.log("connecté 200");
              if(this.managerSrv.isProcessor()){
-              this.router.navigate(["/dashboard"]);
+              this.router.navigate(["mcb/dashboard"]);
              }
              if(this.managerSrv.isApprover()){
-              this.router.navigate(["/approver"]);
+              this.router.navigate(["mcb/approver"]);
              }
           }
           this.message = res.message;

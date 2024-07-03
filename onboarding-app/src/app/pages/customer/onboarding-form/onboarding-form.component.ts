@@ -30,7 +30,7 @@ export class OnboardingFormComponent implements OnInit{
   formData = new FormData();
 
   constructor(
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
     private router: Router,
     private dataReferenceSrv: DataReferenceServiceService,
     private customerSrv: CustomerServiceService
@@ -73,11 +73,11 @@ export class OnboardingFormComponent implements OnInit{
         console.log(res);
         if(res.code === 201){
           var uuid: string = res.data;
-          this.router.navigate(['submitted/' + uuid]);
+          this.router.navigate(['mcb/submitted/' + uuid]);
         }
       }
     );
-    
+
     console.log(this.formData.get("file"));
     // this.router.navigate(['/submitted']);
   }
@@ -128,7 +128,7 @@ export class OnboardingFormComponent implements OnInit{
       }))
     .subscribe();
   }
-  
+
    getApplyingPurpose(){
      this.dataReferenceSrv.getApplyingPurpose()
     .pipe(
