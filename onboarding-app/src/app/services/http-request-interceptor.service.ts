@@ -1,26 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
   HTTP_INTERCEPTORS,
+  HttpEvent,
+  HttpHandler,
   HttpHeaders,
+  HttpInterceptor,
+  HttpRequest,
 } from '@angular/common/http';
-import { Observable, catchError, of } from 'rxjs';
-import { Router } from '@angular/router';
+import {catchError, Observable, of} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpRequestInterceptorService implements HttpInterceptor {
 
-  requestHeaders = new HttpHeaders({
-    'Access-Control-Allow-Origin':'*',
-    'Content-Type': 'application/json',
-    // 'X-Timezone-Offset': timeZone,
-    Authorization: 'Bearer ' + localStorage.getItem('Bearer Token'),
-  });
 
   private whitelist: string[] = [
     'api/submission/manager/login',
@@ -29,19 +23,24 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
     // Add other URLs you want to exclude from interception
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+  }
 
   private shouldIntercept(req: HttpRequest<any>): boolean {
     // Exclude URLs in the whitelist from interception
     return !this.whitelist.some(url => req.url.includes(url));
   }
 
-  intercept(request: HttpRequest<unknown>,next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     console.log("intercept");
     const modifiedReq = request.clone({
-      headers: this.requestHeaders,
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('Bearer Token'),
+      })
     });
-    if(this.shouldIntercept(request)){
+    if (this.shouldIntercept(request)) {
       return next.handle(modifiedReq).pipe(
         catchError((err) => {
           // this.router.navigate(['/server']);
@@ -53,7 +52,6 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
     return next.handle(request);
   }
 }
-
 
 
 export const HttpInterceptorRequest = {

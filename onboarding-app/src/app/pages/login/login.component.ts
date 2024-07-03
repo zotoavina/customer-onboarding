@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { map } from 'rxjs';
-import { ManagerServiceService } from 'src/app/services/manager-service.service';
-import { Login } from 'src/app/shared/model/login';
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {ManagerServiceService} from 'src/app/services/manager-service.service';
+import {Login} from 'src/app/shared/model/login';
 
 @Component({
   selector: 'app-login',
@@ -26,24 +25,25 @@ export class LoginComponent {
     });
   }
 
-  login(){
-    if(this.loginForm.valid){
+  login() {
+    if (this.loginForm.valid) {
       this.userLogin = this.loginForm.value;
       this.managerSrv.login(this.userLogin).subscribe(
         (res) => {
           console.log(res);
-          if(res.code === 200){
-             console.log("connecté 200");
-             if(this.managerSrv.isProcessor()){
+          if (res.code === 200) {
+            console.log("connecté 200");
+            this.managerSrv.setAuthenticated(res.data.token, res.data.role);
+            if (this.managerSrv.isProcessor()) {
               this.router.navigate(["mcb/dashboard"]);
-             }
-             if(this.managerSrv.isApprover()){
+            }
+            if (this.managerSrv.isApprover()) {
               this.router.navigate(["mcb/approver"]);
-             }
+            }
           }
           this.message = res.message;
         },
-        (err) =>{
+        (err) => {
           this.message = err.error.message;
           console.log(this.message);
         });

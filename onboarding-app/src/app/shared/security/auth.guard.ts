@@ -10,7 +10,7 @@ import { ManagerServiceService } from 'src/app/services/manager-service.service'
 export class AuthGuard implements CanActivate {
 
   constructor(
-    private managerSrv: ManagerServiceService, 
+    private managerSrv: ManagerServiceService,
     private router: Router
   ) { }
 
@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     let url: string = state.url;
     return this.checkUserLogin(route,url);
   }
-  
+
 
   checkUserLogin(route: ActivatedRouteSnapshot, url: any): boolean {
     if (this.managerSrv.isAuthenticatedUser()) {
@@ -30,7 +30,6 @@ export class AuthGuard implements CanActivate {
       }
       return true;
     }
-
     this.router.navigate(['/login']);
     return false;
   }

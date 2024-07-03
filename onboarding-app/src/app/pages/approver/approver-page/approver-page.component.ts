@@ -61,7 +61,7 @@ export class ApproverPageComponent implements OnInit{
       let app = {
         "applicationUUID": appId
       };
-      this.appManagementSrv.proceedApplication(app)
+      this.appManagementSrv.approveApplication(app)
         .subscribe(res => {
           if (res.code === 200) {
             console.log("Proceeded");
