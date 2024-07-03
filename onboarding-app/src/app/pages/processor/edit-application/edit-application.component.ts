@@ -65,7 +65,6 @@ export class EditApplicationComponent implements OnInit {
       if (applicationID) {
         try {
           this.customerApplication = await this.getApplicationByUUID(applicationID);
-          console.log(this.customerApplication);
           this.updateForm();
         } catch (error) {
           console.error('Error fetching application:', error);
@@ -114,10 +113,8 @@ export class EditApplicationComponent implements OnInit {
   edit() {
     this.getOnboardingFirstFormValue();
     this.getOnboardingSecondFormValue();
-    console.log(this.formData);
     this.appManagementSrv.updateApplication(this.formData).subscribe(
       (res) => {
-        console.log(res);
         if (res.code === 200) {
           this.router.navigate(['mcb/dashboard']);
         }

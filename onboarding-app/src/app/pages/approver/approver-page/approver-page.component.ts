@@ -38,7 +38,6 @@ export class ApproverPageComponent implements OnInit{
       map((res: DataResponse<Customer[]>) => res)).subscribe(
         (res) => {
            if(res.code === 200){
-            console.log(res.data);
             this.proceededApplication = res.data;
            }
         }
@@ -50,21 +49,18 @@ export class ApproverPageComponent implements OnInit{
       map((res: DataResponse<Kpi>) => res)).subscribe(
       res => {
         if (res.code === 200) {
-          console.log(res.data);
           this.appKpi = res.data;
         }
       }
     )
   }
     approve(appId : string){
-      console.log("Approve " + appId);
       let app = {
         "applicationUUID": appId
       };
       this.appManagementSrv.approveApplication(app)
         .subscribe(res => {
           if (res.code === 200) {
-            console.log("Proceeded");
             this.proceededApplication = this.proceededApplication
               .filter(appli => appli.applicationId != appId);
             this.appKpi.approved++;
@@ -73,8 +69,6 @@ export class ApproverPageComponent implements OnInit{
     }
 
     reject(appId : string){
-      console.log("reject " + appId);
-      console.log("reject " + appId);
       let app = {
         "applicationUUID": appId
       };
@@ -83,7 +77,6 @@ export class ApproverPageComponent implements OnInit{
           map((res: DataResponse<string>) => res)).subscribe(
         (res) => {
           if (res.code === 200) {
-            console.log("Rejected");
             this.proceededApplication = this.proceededApplication
               .filter(appli => appli.applicationId != appId);
             this.appKpi.rejected++;

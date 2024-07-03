@@ -30,7 +30,6 @@ export class LoginComponent {
       this.userLogin = this.loginForm.value;
       this.managerSrv.login(this.userLogin).subscribe(
         (res) => {
-          console.log(res);
           if (res.code === 200) {
             console.log("connecté 200");
             this.managerSrv.setAuthenticated(res.data.token, res.data.role);

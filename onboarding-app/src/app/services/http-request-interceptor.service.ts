@@ -20,7 +20,6 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
     'api/submission/manager/login',
     'api/submissions',
     'api/submissions/client'
-    // Add other URLs you want to exclude from interception
   ];
 
   constructor(private router: Router) {

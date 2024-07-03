@@ -39,7 +39,6 @@ export class DashboardComponent implements OnInit {
       map((res: DataResponse<Customer[]>) => res)).subscribe(
       (res) => {
         if (res.code === 200) {
-          console.log(res.data);
           this.submittedApplication = res.data;
         }
 
@@ -59,7 +58,6 @@ export class DashboardComponent implements OnInit {
   }
 
   edit(appId: string) {
-    console.log("edit" + appId);
     this.router.navigate(['mcb/edit/' + appId]);
   }
 

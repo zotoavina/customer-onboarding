@@ -68,7 +68,6 @@ export class OnboardingFormComponent implements OnInit {
     this.getOnboardingSecondFormValue();
     this.customerSrv.postCustomerForm(this.formData).subscribe(
       (res) => {
-        console.log(res);
         if (res.code === 201) {
           var uuid: string = res.data;
           this.router.navigate(['mcb/submitted/' + uuid]);
@@ -76,8 +75,6 @@ export class OnboardingFormComponent implements OnInit {
       }
     );
 
-    console.log(this.formData.get("file"));
-    // this.router.navigate(['/submitted']);
   }
 
   uploadFile(event: any) {
@@ -121,7 +118,6 @@ export class OnboardingFormComponent implements OnInit {
     this.dataReferenceSrv.getAllCountries()
       .pipe(
         map((res: DataResponse<Country[]>) => {
-          console.log(res.data);
           this.countries = res.data;
         }))
       .subscribe();
