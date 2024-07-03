@@ -26,19 +26,15 @@ export class ManagerServiceService {
   }
 
   login(authReq: Login) {
-    return this.http.post(this.baseUrl, "submission/manager/login", authReq).
-    pipe(
-      map((res: DataResponse<any> ) => {
-        return res;
-      }),
-      tap((response:any) => {
-        this.token = response.data.token; // Store the received token 
-        this.role = response.data.role;
-        localStorage.setItem(this.authSecretKey ,this.token);
-        localStorage.setItem(this.roleKey, this.role!);
-        this.isAuthenticated = true;
-      })
-    );
+    return this.http.post(this.baseUrl, "submission/manager/login", authReq);
+  }
+
+  setAuthenticated(token:string, role: string){
+    this.token = token;
+    this.role=role;
+    localStorage.setItem(this.authSecretKey ,this.token);
+    localStorage.setItem(this.roleKey, this.role!);
+    this.isAuthenticated = true;
   }
 
   logout(): void {
@@ -61,7 +57,7 @@ export class ManagerServiceService {
     if(this.getRole()?.localeCompare(ROLE.PROCESSOR) === 0){  return true}
     return false;
   }
-  
+
   isApprover(){
     if(this.getRole()?.localeCompare(ROLE.APPROVER) === 0){  return true}
     return false;

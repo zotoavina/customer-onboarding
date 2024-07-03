@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ManagerServiceService} from "../../../services/manager-service.service";
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  constructor(private managerSev: ManagerServiceService) {
+  }
+
+
+  logout(){
+    this.managerSev.logout();
+  }
 }
