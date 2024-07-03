@@ -32,7 +32,7 @@ class EntityTypeControllerTest {
         when(typeService.findAllEntityTypes()).thenReturn(types);
 
         // act and assert
-        mockMvc.perform(get("/api/v1/data/reference/entity-typ"))
+        mockMvc.perform(get("/api/data/reference/entity-types"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("data")));
     }

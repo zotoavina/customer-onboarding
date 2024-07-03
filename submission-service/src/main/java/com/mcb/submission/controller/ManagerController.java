@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/submission/manager")
+@RequestMapping("/api/submission/manager")
 public class ManagerController {
 
     private final AuthenticationManager authenticationManager;

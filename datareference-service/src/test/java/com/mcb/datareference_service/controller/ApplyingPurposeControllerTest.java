@@ -29,7 +29,7 @@ class ApplyingPurposeControllerTest {
     @Test
     void findAllApplyingPurpose() throws Exception {
         // arrange
-        String url = "/api/v1/data/reference/applying-purposes";
+        String url = "/api/data/reference/applying-purposes";
         var purposeList = List.of(new ApplyingPurpose(), new ApplyingPurpose());
 
         when(purposeService.getAllApplyingPurpose()).thenReturn(purposeList);

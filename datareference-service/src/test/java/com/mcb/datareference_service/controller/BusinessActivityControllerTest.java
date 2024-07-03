@@ -33,7 +33,7 @@ class BusinessActivityControllerTest {
         when(activityService.getAll()).thenReturn(activities);
 
         // act and assert
-        mockMvc.perform(get("/api/v1/data/reference/activities"))
+        mockMvc.perform(get("/api/data/reference/activities"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("data")));
     }

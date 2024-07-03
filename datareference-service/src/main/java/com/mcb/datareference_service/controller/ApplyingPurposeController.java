@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/data/reference/applying-purposes")
+@RequestMapping("/api/data/reference/applying-purposes")
 public class ApplyingPurposeController {
     private final ApplyingPurposeService purposeService;
 

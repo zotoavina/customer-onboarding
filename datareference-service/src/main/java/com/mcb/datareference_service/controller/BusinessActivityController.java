@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/data/reference/activities")
+@RequestMapping("/api/data/reference/activities")
 public class BusinessActivityController {
     private final BusinessActivityService activityService;
 
