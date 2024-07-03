@@ -9,6 +9,7 @@ public class AuthenticationResponse {
     private String lastName;
     private String email;
     private String token;
+    private String role;
 
     public static AuthenticationResponse fromUser(Manager boManager, String token) {
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
@@ -16,6 +17,7 @@ public class AuthenticationResponse {
         authenticationResponse.setFirstName(boManager.getFirstName());
         authenticationResponse.setLastName(boManager.getLastName());
         authenticationResponse.setToken(token);
+        authenticationResponse.setRole(boManager.getProfile().getProfileCode());
         return authenticationResponse;
     }
 }
