@@ -131,7 +131,7 @@
                     <div *ngIf="!onboardingSecondForm.get('emailForCom')?.valid && onboardingSecondForm.get('emailForCom')?.touched">
                       <small *ngIf="onboardingSecondForm.get('emailForCom')?.hasError('required')">
                       Email required</small>
-                      <small *ngIf="onboardingSecondForm.get('emailForCom')?.hasError('emailForCom')">
+                      <small *ngIf="onboardingSecondForm.get('emailForCom')?.hasError('email')">
                       Please enter a valid email address</small>
                     </div>
                   </div>

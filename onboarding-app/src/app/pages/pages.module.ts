@@ -8,6 +8,15 @@ import { ApproverPageComponent } from './approver/approver-page/approver-page.co
 import { AuthGuard } from '../shared/security/auth.guard';
 import { VisualisationComponent } from './processor/visualisation/visualisation.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { EditApplicationComponent } from './processor/edit-application/edit-application.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatInputModule } from '@angular/material/input';
+import { HttpClientModule } from '@angular/common/http';
 
 const ROUTES: Routes = [
   {
@@ -17,6 +26,14 @@ const ROUTES: Routes = [
       {
         path:'dashboard',
         component: DashboardComponent,
+        canActivate: [AuthGuard],
+        data: {
+          role: 'PROCESSOR'
+        }
+      },
+      {
+        path:'edit/:uuid',
+        component: EditApplicationComponent,
         canActivate: [AuthGuard],
         data: {
           role: 'PROCESSOR'
@@ -51,8 +68,18 @@ const ROUTES: Routes = [
     DashboardComponent, 
     AppIdGenerationComponent, 
     ApproverPageComponent,
-    VisualisationComponent],
-  imports: [CommonModule, NgxExtendedPdfViewerModule, RouterModule.forChild(ROUTES)]
+    VisualisationComponent,
+    EditApplicationComponent],
+  imports: [
+    CommonModule, 
+    NgxExtendedPdfViewerModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatStepperModule,
+    MatInputModule,
+    HttpClientModule,
+    RouterModule.forChild(ROUTES)]
 })
 
 export class PagesModule { }

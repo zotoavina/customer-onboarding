@@ -1,39 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
+import { ApplicationSelectionService } from 'src/app/services/application-selection.service';
 import { CustomerServiceService } from 'src/app/services/customer-service.service';
 import { DataReferenceServiceService } from 'src/app/services/data-reference-service.service';
 import { BANKING_UUID } from 'src/app/shared/constant/all-constant';
 import { Activity } from 'src/app/shared/model/activity';
-import { FirstFormRequest } from 'src/app/shared/model/application-request';
 import { Country } from 'src/app/shared/model/country';
+import { Customer } from 'src/app/shared/model/customer';
 import { DataResponse } from 'src/app/shared/model/data-response';
 import { EntityType } from 'src/app/shared/model/entity-type';
 import { Purpose } from 'src/app/shared/model/purpose';
 
 @Component({
-  selector: 'app-onboarding-form',
-  templateUrl: './onboarding-form.component.html',
-  styleUrls: ['./onboarding-form.component.css']
+  selector: 'app-edit-application',
+  templateUrl: './edit-application.component.html',
+  styleUrls: ['./edit-application.component.css']
 })
-export class OnboardingFormComponent implements OnInit{
-  onboardingFirstForm: FormGroup;
-  onboardingSecondForm: FormGroup;
-  onboardingThirdForm: FormGroup;
+export class EditApplicationComponent implements OnInit{
+  onboardingFirstForm!: FormGroup;
+  onboardingSecondForm!: FormGroup;
   isLinear = true;
   isActivityBanking = false;
   purposes: Purpose[] = [];
   entities: EntityType[] = [];
   activities: Activity[] = [];
   countries: Country[] = [];
+  customerApplication! : Customer;
   formData = new FormData();
 
   constructor(
     private formBuilder: FormBuilder, 
     private router: Router,
     private dataReferenceSrv: DataReferenceServiceService,
-    private customerSrv: CustomerServiceService
+    private customerSrv: CustomerServiceService,
+    private activatedRoute : ActivatedRoute,
+    private applicationSelectionSrv : ApplicationSelectionService
   ) {
 
     this.initializeData();
@@ -53,38 +56,76 @@ export class OnboardingFormComponent implements OnInit{
       nameOfApplicant: ['', Validators.required],
       emailForCom: ['', [Validators.required, Validators.email]]
     });
-
-    this.onboardingThirdForm = this.formBuilder.group({
-      file: ['']
-    });
+   
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.activatedRoute.paramMap.subscribe(async params => {
+      const applicationID = params.get('uuid');
+      if (applicationID) {
+        try {
+          this.customerApplication = await this.getApplicationByUUID(applicationID);
+          console.log(this.customerApplication);
+          this.updateForm();
+        } catch (error) {
+          console.error('Error fetching application:', error);
+          // Gérer l'erreur (par exemple, afficher un message à l'utilisateur)
+        }
+      }
+    });
+
     this.onboardingFirstForm.get('activityUuid')?.valueChanges.subscribe(value => {
       this.isActivityBanking = value === BANKING_UUID;
     });
   }
 
-  validation() {
-    this.getOnboardingFirstFormValue();
-    this.getOnboardingSecondFormValue();
-    this.customerSrv.postCustomerForm(this.formData).subscribe(
-      (res) =>{
-        console.log(res);
-        if(res.code === 201){
-          var uuid: string = res.data;
-          this.router.navigate(['submitted/' + uuid]);
-        }
-      }
-    );
-    
-    console.log(this.formData.get("file"));
-    // this.router.navigate(['/submitted']);
+  updateForm(): void {
+    if (this.customerApplication) {
+      this.onboardingFirstForm.patchValue({
+        purposeUuid: this.customerApplication.applyingPurposeUuid,
+        companyName: this.customerApplication.companyName,
+        entityTypeUuid: this.customerApplication.entityTypeUuid,
+        activityUuid: this.customerApplication.activityUuid,
+        licence: this.customerApplication.licence,
+        countryName: this.customerApplication.countryName,
+        registrationNumber: this.customerApplication.registrationNumber,
+        incorporationDate: this.customerApplication.dateOfIncorporation
+      });
+
+      this.onboardingSecondForm.patchValue({
+        directorName: this.customerApplication.directorName,
+        directorPassportNumber: this.customerApplication.directorPassportNumber,
+        nameOfApplicant: this.customerApplication.nameOfApplicant,
+        emailForCom: this.customerApplication.emailForCom
+      });
+    }
   }
 
-  uploadFile(event : any){
-    const file = event.target.files[0];
-    this.formData.append('file',file);
+  async getApplicationByUUID(uuid: string): Promise<any> {
+    try {
+      return await this.applicationSelectionSrv.getApplicationByUUID(uuid).pipe(
+        map((res : DataResponse<Customer>) => res.data)).toPromise();
+    } catch (error) {
+      console.error('Error fetching application:', error);
+      throw error; // Rejeter l'erreur pour gérer dans ngOnInit
+    }
+  }
+
+  edit() {
+    this.getOnboardingFirstFormValue();
+    this.getOnboardingSecondFormValue();
+    
+    // *********************************************************** //
+    // TODO : ito no ovaina an'ilay api update
+    // this.customerSrv.postCustomerForm(this.formData).subscribe(
+    //   (res) =>{
+    //     console.log(res);
+    //     if(res.code === 201){
+    //       var uuid: string = res.data;
+    //       this.router.navigate(['submitted/' + uuid]);
+    //     }
+    //   }
+    // );
   }
 
   getOnboardingFirstFormValue(){
@@ -110,7 +151,6 @@ export class OnboardingFormComponent implements OnInit{
       this.formData.append("emailForCom",secondFormValue.emailForCom);
     }
   }
-
 
   initializeData(){
     this.getAllCountries();
@@ -155,5 +195,4 @@ export class OnboardingFormComponent implements OnInit{
   }))
  .subscribe();
 }
-
 }

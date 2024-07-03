@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { ApplicationSelectionService } from 'src/app/services/application-selection.service';
 import { Customer } from 'src/app/shared/model/customer';
@@ -18,7 +19,9 @@ processorTableHeader : string[] = [
 
 submittedApplication: Customer[] = []; 
 
-constructor(private applicationSelectionSrv : ApplicationSelectionService){}
+constructor(
+  private applicationSelectionSrv : ApplicationSelectionService,
+  private router : Router){}
 
 
 ngOnInit(): void {
@@ -28,7 +31,7 @@ ngOnInit(): void {
 getSubmittedApplication(){
   this.submittedApplication = [];
   this.applicationSelectionSrv.getListOfSubmittedApplication().pipe(
-    map((res: DataResponse<Customer>) => res)).subscribe(
+    map((res: DataResponse<Customer[]>) => res)).subscribe(
       (res) => {
          if(res.code === 200){
           console.log(res.data);
@@ -42,6 +45,7 @@ getSubmittedApplication(){
 
   edit(appId : string){
     console.log("edit" + appId);
+    this.router.navigate(['edit/' + appId]);
   }
 
   viewDocument(appId : string){
